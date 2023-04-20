@@ -4,17 +4,18 @@ const autofit = {
     let designHeight = options?.designHeight || 929;
     let renderDom = options?.renderDom || "#app";
     let resize = options?.resize || true;
-    keepScale(designWidth, designHeight, renderDom);
+    document.querySelector(renderDom).style.height = `${designHeight}px`;
+    document.querySelector(renderDom).style.width = `${designWidth}px`;
+    document.querySelector(renderDom).style.transformOrigin = `0 0`;
+    keepFit(designWidth, designHeight, renderDom);
     resize && (window.onresize = () => {
-      keepScale(designWidth, designHeight, renderDom);
+      keepFit(designWidth, designHeight, renderDom);
     })
   }
 }
-function keepScale(designWidth, designHeight, renderDom) {
+function keepFit(designWidth, designHeight, renderDom) {
   let clientHeight = document.documentElement.clientHeight;
   let clientWidth = document.documentElement.clientWidth;
-  document.querySelector(renderDom).style.height = `${designHeight}px`;
-  document.querySelector(renderDom).style.width = `${designWidth}px`;
   let scale = 1;
   if (clientWidth / clientHeight < designWidth / designHeight) {
     scale = (clientWidth / designWidth)
