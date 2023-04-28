@@ -1,6 +1,6 @@
 {
   "name": "vue-autofit",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "一款自适应屏幕工具，自动缩放且铺满整屏，适用范围3840-768",
   "main": "autofit.js",
   "scripts": {

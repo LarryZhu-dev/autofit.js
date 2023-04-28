@@ -1,5 +1,8 @@
 const autofit = {
-  init(options) {
+  init(options, isShowInitTip = true) {
+    if (isShowInitTip) {
+      console.log(`%c` + `vue-autofit` + ` is running`, `color: #fff; background: #f40; padding: 2px 4px; border-radius: 4px;`);
+    }
     let designWidth = options?.designWidth || 1920;
     let designHeight = options?.designHeight || 929;
     let renderDom = options?.renderDom || "#app";

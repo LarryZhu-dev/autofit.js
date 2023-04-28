@@ -26,7 +26,7 @@ export default {
         designWidth: 1920,
         renderDom:"#app",
         resize: true
-    })
+    },false) // 可关闭控制台运行提示输出
   },
 }
 ```
