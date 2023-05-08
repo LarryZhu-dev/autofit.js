@@ -22,15 +22,11 @@ function keepFit(designWidth, designHeight, renderDom) {
   let scale = 1;
   if (clientWidth / clientHeight < designWidth / designHeight) {
     scale = (clientWidth / designWidth)
-    document.querySelector(renderDom).style.height = `${clientHeight / scale}px`;
   } else {
     scale = (clientHeight / designHeight)
-    document.querySelector(renderDom).style.width = `${clientWidth / scale}px`;
   }
-  if (scale == 1) {
-    document.querySelector(renderDom).style.height = `${clientHeight}px`;
-    document.querySelector(renderDom).style.width = `${clientWidth}px`;
-  }
+  document.querySelector(renderDom).style.height = `${clientHeight / scale}px`;
+  document.querySelector(renderDom).style.width = `${clientWidth / scale}px`;
   document.querySelector(renderDom).style.transform = `scale(${scale})`;
 }
 export default autofit;
