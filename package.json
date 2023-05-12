@@ -1,14 +1,14 @@
 {
-  "name": "vue-autofit",
-  "version": "1.0.8",
-  "description": "一款自适应屏幕工具，自动缩放且铺满整屏，适用范围3840-768",
+  "name": "autofit.js",
+  "version": "1.1.1",
+  "description": "一款自适应屏幕工具，自动缩放且铺满整屏，适用范围3840-768(原vue-autofit)",
   "main": "autofit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/995231030/vue-autofit.git"
+    "url": "https://github.com/995231030/autofit.js.git"
   },
   "keywords": [
     "自适应",
@@ -18,7 +18,7 @@
     "vue-autofit",
     "fit",
     "vue-fit",
-    "vue-fit-next"
+    "autofit.js"
   ],
   "author": "Larry Zhu",
   "license": "MIT"

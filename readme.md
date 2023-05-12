@@ -1,11 +1,11 @@
-### vue-autofit
+### autofit.js
 
 这是一款可以使你的项目一键自适应的工具
 
 ### 引入
 
 ```js
-import autofit from 'vue-autofit'
+import autofit from 'autofit.js'
 ```
 
 ### 快速开始
