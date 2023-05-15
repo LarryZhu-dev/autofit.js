@@ -31,16 +31,18 @@ function keepFit(designWidth, designHeight, dom, ignore) {
   dom.style.transform = `scale(${scale})`;
   for (let item of ignore) {
     let realScale = (item.scale ? item.scale : 1 / scale)
-    let realFontSize = (item.fontSize ? item.fontSize : 'autofit')
-    let realWidth = realScale == 1 ? 'autofit' : item.width
-    let realHeight = realScale == 1 ? 'autofit' : item.height
-    document.querySelector('#autofit-style').innerHTML = `${item.dom} { 
+    let realFontSize = realScale != scale ? item.fontSize : 'autofit'
+    let realWidth = realScale != scale ? item.width : 'autofit'
+    let realHeight =  realScale != scale ? item.height : 'autofit'
+    document.querySelector('#autofit-style').innerHTML = `${item.dom}{ 
       transform: scale(${realScale})!important;
       transform-origin: 50% 0;
-      width: ${realWidth}px;
-      height: ${realHeight}px;
-      font-size: ${realFontSize}px;
-      `;
+      width: ${realWidth}px!important;
+      height: ${realHeight}px!important;
+    }`;
+    document.querySelector('#autofit-style').innerHTML += `${item.dom} div ,${item.dom} span,${item.dom} a,${item.dom} *{
+    font-size: ${realFontSize}px;
+    }`;
   }
 }
 export default autofit;
