@@ -12,6 +12,11 @@ const autofit = {
     const style = document.createElement('style');
     style.lang = 'text/css';
     style.id = 'autofit-style';
+    style.innerHTML = `
+      body {
+        overflow: hidden;
+      }
+    `;
     dom.appendChild(style);
     dom.style.height = `${designHeight}px`;
     dom.style.width = `${designWidth}px`;
@@ -34,7 +39,7 @@ function keepFit(designWidth, designHeight, dom, ignore) {
     let realFontSize = realScale != scale ? item.fontSize : 'autofit'
     let realWidth = realScale != scale ? item.width : 'autofit'
     let realHeight = realScale != scale ? item.height : 'autofit'
-    document.querySelector('#autofit-style').innerHTML = `${item.dom}{ 
+    document.querySelector('#autofit-style').innerHTML += `${item.dom}{ 
       transform: scale(${realScale})!important;
       transform-origin: 50% 0;
       width: ${realWidth}px!important;
