@@ -1,3 +1,17 @@
+<div  style='background-image: linear-gradient( -45deg, #bd34fe 50%, #47caff 50% ); filter: blur(72px);border-radius: 50%;width: 280px;height: 280px;position: absolute;top:0;left:50%;    transform: translateX(-50%);'>
+<img src='https://glnf123456.obs.cidc-rp-13.joint.cmecloud.cn/fileUpload/202305171043894.png' />
+</div>
+<img src='https://glnf123456.obs.cidc-rp-13.joint.cmecloud.cn/fileUpload/202305171047077.png' style='width: 280px;height: 280px;position: absolute;top:0;left:50%;transform: translateX(-50%);' />
+
+<div style='background:linear-gradient( -45deg, #bd34fe 50%, #47caff 50% );background: -webkit-linear-gradient( 120deg, #bd34fe 30%, #41d1ff );background-clip: text;-webkit-background-clip: text;   -webkit-text-fill-color:linear-gradient( -45deg, #bd34fe 50%, #47caff 50% );font-size:56px;position: absolute;top:280px;left:50%;transform: translateX(-50%);'>autofit.js</div>
+
+<div  style='width: 280px;height: 360px;'></div>
+
+autofit.js是一个可以让你的PC项目自适应屏幕的工具，其原理非常简单，即在scale等比缩放的基础上，向右或向下增加了宽度或高度，以达到充满全屏的效果，使用autofit.js不会挤压、拉伸元素，它只是单纯的设置了容器的宽高。
+
+
+
+
 | 时间       | 版本   | 描述                                      |
 | ---------- | ------ | ----------------------------------------- |
 | 2023-04-16 | v1.0.0 | 第一个版本发布 🥳                          |
@@ -62,7 +76,7 @@ autofit.init({
 })
 ```
 
-传入 `ignore` 以使元素不被缩放（自动反向缩放）
+传入 `ignore` 以使元素不被缩放
 
 更个性化的设置：
 
@@ -71,9 +85,10 @@ autofit.init({
   ignore: [
     {
       dom: ".gaodeMap", //必填
-      height: "300px;",//可选
-      width: "300px;",//可选
-      scale:1.2 //可选：回放程度，基于主元素缩放后的大小
+      height: 300,//可选，写数字即可（px）
+      width: 300,//可选，写数字即可（px）
+      scale:1.2, //可选：回放程度，基于主元素缩放后的大小
+      fontSize:26 //可选，如果自定义缩放后文字大小不合适，可以在这里设置文字大小
     },
     {
         //...
