@@ -1,13 +1,13 @@
 const autofit = {
-  init(options, isShowInitTip = true) {
+  init(options = {}, isShowInitTip = true) {
     if (isShowInitTip) {
       console.log(`%c` + `autofit.js` + ` is running`, `color: #fff; background: #f40; padding: 2px 4px; border-radius: 4px;`);
     }
-    let designWidth = options?.designWidth || 1920;
-    let designHeight = options?.designHeight || 929;
-    let renderDom = options?.renderDom || "#app";
-    let resize = options?.resize || true;
-    let ignore = options?.ignore || [];
+    let designWidth = options.designWidth || 1920;
+    let designHeight = options.designHeight || 929;
+    let renderDom = options.renderDom || "#app";
+    let resize = options.resize || true;
+    let ignore = options.ignore || [];
     let dom = document.querySelector(renderDom)
     const style = document.createElement('style');
     style.lang = 'text/css';
@@ -33,7 +33,7 @@ function keepFit(designWidth, designHeight, dom, ignore) {
     let realScale = (item.scale ? item.scale : 1 / scale)
     let realFontSize = realScale != scale ? item.fontSize : 'autofit'
     let realWidth = realScale != scale ? item.width : 'autofit'
-    let realHeight =  realScale != scale ? item.height : 'autofit'
+    let realHeight = realScale != scale ? item.height : 'autofit'
     document.querySelector('#autofit-style').innerHTML = `${item.dom}{ 
       transform: scale(${realScale})!important;
       transform-origin: 50% 0;
