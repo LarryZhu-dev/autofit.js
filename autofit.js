@@ -41,7 +41,7 @@ function keepFit(designWidth, designHeight, dom, ignore) {
     let realHeight = realScale != scale ? item.height : 'autofit'
     document.querySelector('#autofit-style').innerHTML += `${item.dom}{ 
       transform: scale(${realScale})!important;
-      transform-origin: 50% 0;
+      transform-origin: 0 0;
       width: ${realWidth}px!important;
       height: ${realHeight}px!important;
     }`;
