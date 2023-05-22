@@ -1,3 +1,4 @@
+let currRenderDom = null;
 const autofit = {
   init(options = {}, isShowInitTip = true) {
     if (isShowInitTip) {
@@ -8,6 +9,7 @@ const autofit = {
     let renderDom = options.renderDom || "#app";
     let resize = options.resize || true;
     let ignore = options.ignore || [];
+    currRenderDom = renderDom;
     let dom = document.querySelector(renderDom)
     const style = document.createElement('style');
     style.lang = 'text/css';
@@ -25,6 +27,11 @@ const autofit = {
     resize && (window.onresize = () => {
       keepFit(designWidth, designHeight, dom, ignore);
     })
+  },
+  off(renderDom = "#app") {
+    window.onresize = null;
+    document.querySelector('#autofit-style').remove();
+    document.querySelector(currRenderDom ? currRenderDom : renderDom).style = '';
   }
 }
 function keepFit(designWidth, designHeight, dom, ignore) {
