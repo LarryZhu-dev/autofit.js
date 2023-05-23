@@ -12,6 +12,12 @@ declare interface autofit {
    * - ignore(可选)：忽略缩放的元素（该元素将反向缩放），参数见readme.md
   */
   init(options: { renderDom: String, designWidth: Number, designHeight: Number, resize: Boolean }): void;
+  /**
+   * @param {String} id 
+   * 关闭autofit.js造成的影响
+   * 
+  */
+  off(id: String): void;
 }
 declare const autofit: autofit;
 

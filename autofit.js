@@ -2,7 +2,7 @@ let currRenderDom = null;
 const autofit = {
   init(options = {}, isShowInitTip = true) {
     if (isShowInitTip) {
-      console.log(`%c` + `autofit.js` + ` is running`, `color: #fff; background: #f40; padding: 2px 4px; border-radius: 4px;`);
+      console.log(`%c` + `autofit.js` + ` is running`, `font-weight: bold; color: #ffb712; background:linear-gradient(-45deg, #bd34fe 50%, #47caff 50% );background: -webkit-linear-gradient( 120deg, #bd34fe 30%, #41d1ff );background-clip: text;-webkit-background-clip: text; -webkit-text-fill-color:linear-gradient( -45deg, #bd34fe 50%, #47caff 50% ); padding: 8px 12px; border-radius: 4px;`);
     }
     let designWidth = options.designWidth || 1920;
     let designHeight = options.designHeight || 929;
@@ -32,6 +32,7 @@ const autofit = {
     window.onresize = null;
     document.querySelector('#autofit-style').remove();
     document.querySelector(currRenderDom ? currRenderDom : renderDom).style = '';
+    console.log(`%c` + `autofit.js` + ` is off`, `font-weight: bold;color: #707070; background: #c9c9c9; padding: 8px 12px; border-radius: 4px;`);
   }
 }
 function keepFit(designWidth, designHeight, dom, ignore) {
