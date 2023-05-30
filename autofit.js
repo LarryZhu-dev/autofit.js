@@ -1,4 +1,5 @@
 let currRenderDom = null;
+let resizeListener = null;
 const autofit = {
   init(options = {}, isShowInitTip = true) {
     if (isShowInitTip) {
@@ -11,6 +12,10 @@ const autofit = {
     let ignore = options.ignore || [];
     currRenderDom = renderDom;
     let dom = document.querySelector(renderDom)
+    if (!dom) {
+      console.error(`autofit: '${renderDom}' is not exist`);
+      return
+    }
     const style = document.createElement('style');
     style.lang = 'text/css';
     style.id = 'autofit-style';
@@ -24,15 +29,22 @@ const autofit = {
     dom.style.width = `${designWidth}px`;
     dom.style.transformOrigin = `0 0`;
     keepFit(designWidth, designHeight, dom, ignore);
-    resize && (window.onresize = () => {
+    resizeListener = () => {
       keepFit(designWidth, designHeight, dom, ignore);
-    })
+    }
+    resize && window.addEventListener('resize', resizeListener)
   },
   off(renderDom = "#app") {
-    window.onresize = null;
-    document.querySelector('#autofit-style').remove();
-    document.querySelector(currRenderDom ? currRenderDom : renderDom).style = '';
-    console.log(`%c` + `autofit.js` + ` is off`, `font-weight: bold;color: #707070; background: #c9c9c9; padding: 8px 12px; border-radius: 4px;`);
+    let state = true
+    try {
+      window.removeEventListener("resize", resizeListener);
+      document.querySelector('#autofit-style').remove();
+      document.querySelector(currRenderDom ? currRenderDom : renderDom).style = '';
+    } catch (error) {
+      console.error(`autofit: Failed to remove normally`, error);
+      state = false
+    }
+    state && console.log(`%c` + `autofit.js` + ` is off`, `font-weight: bold;color: #707070; background: #c9c9c9; padding: 8px 12px; border-radius: 4px;`);
   }
 }
 function keepFit(designWidth, designHeight, dom, ignore) {

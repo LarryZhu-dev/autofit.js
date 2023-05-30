@@ -11,7 +11,7 @@ declare interface autofit {
    * - resize（可选）：是否监听resize事件，默认是 true
    * - ignore(可选)：忽略缩放的元素（该元素将反向缩放），参数见readme.md
   */
-  init(options: { renderDom: String, designWidth: Number, designHeight: Number, resize: Boolean }): void;
+  init(options: { renderDom: String, designWidth: Number, designHeight: Number, resize: Boolean, ignore: Array<Object> }): void;
   /**
    * @param {String} id 
    * 关闭autofit.js造成的影响
