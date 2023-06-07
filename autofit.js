@@ -24,7 +24,6 @@ const autofit = {
       console.error(`autofit: '${renderDom}' is not exist`);
       return
     }
-    dom.style.transition = `${transition}s`
     const style = document.createElement('style');
     const ignoreStyle = document.createElement('style');
     style.lang = 'text/css';
@@ -46,14 +45,18 @@ const autofit = {
       clearTimeout(timer)
       timer = setTimeout(() => {
         keepFit(designWidth, designHeight, dom, ignore);
-        elRectification(currelRectification, currelRectificationLevel)
+        isElRectification && elRectification(currelRectification, currelRectificationLevel)
       }, delay)
     }
     resize && window.addEventListener('resize', resizeListener)
     isAutofitRunnig = true
+    setTimeout(() => {
+      dom.style.transition = `${transition}s`
+    });
   },
   off(renderDom = "#app") {
     try {
+      isElRectification = false
       window.removeEventListener("resize", resizeListener);
       document.querySelector('#autofit-style').remove();
       document.querySelector(currRenderDom ? currRenderDom : renderDom).style = '';
