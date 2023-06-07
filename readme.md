@@ -20,6 +20,7 @@ autofit.js是一个可以让你的PC项目自适应屏幕的工具，其原理�
 | 2023-05-12 | v1.1.2 | 新增忽略元素功能（地图热区事件偏移解决）👍 |
 | 2023-05-22 | v2.0.0 | 新增关闭autofit影响选项                   |
 | 2023-05-30 | v2.0.2 | 增加兼容性，新增错误提示                  |
+| 2023-06-07 | v2.0.3 | 新增延迟、过渡、图表适配                  |
 
 
 
@@ -58,13 +59,17 @@ export default {
 }
 ```
 
-> 以上使用的是默认参数，可根据实际情况调整，参数分别为
+> 以上使用的是默认参数，可根据实际情况调整，可选参数有
 >
 > ```js
->    * - renderDom（可选）：渲染的dom，默认是 "#app"，必须使用id选择器 
->    * - designWidth（可选）：设计稿的宽度，默认是 1920 
->    * - designHeight（可选）：设计稿的高度，默认是 929 ，如果项目以全屏展示，则可以设置为1080
->    * - resize（可选）：是否监听resize事件，默认是 true
+>    * - renderDom：渲染的dom，默认是 "#app"，必须使用id选择器 
+>    * - designWidth：设计稿的宽度，默认是 1920 
+>    * - designHeight：设计稿的高度，默认是 929 ，如果项目以全屏展示，则可以设置为1080
+>    * - resize：是否监听resize事件，默认是 true
+>    * - ignore：忽略缩放的元素（该元素将反向缩放），参数见readme.md
+>    * - transition：过渡时间，默认是 0.6
+>    * - delay：默认是 1000
+> 
 > ```
 
 ### 忽略某些元素
@@ -102,7 +107,29 @@ autofit.init({
 
 如果反向缩放后的元素大小使结构发生变化，你还可以手动传入宽高、回放程度。
 
+### elRectification
 
+一些canvas渲染的图表也会有事件偏移，而图表不同于地图，当使用ignore时，过大的图表可能会显示不全，因此可以使用`elRectification` （性能上不如ignore） 
+
+如果ignore无法满足需求，可以使用 `autofit.elRectification(".classNameOrId")`
+
+```js
+import { elRectification } from 'autofit.js'
+```
+
+```html
+<div class="G2plot"></div>
+<div class="G2plot"></div>
+<div class="G2plot"></div>
+```
+
+```js
+onMounted(() => {
+  elRectification(".testEl")
+})
+```
+
+使用 elRectification 时，需要被矫正的元素已经挂载
 
 ### 关闭 autofit.js造成的影响
 

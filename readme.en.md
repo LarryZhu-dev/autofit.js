@@ -57,13 +57,13 @@ export default {
 > The above example uses the default parameters. Adjust the parameters according to your needs:
 >
 > ```js
->    * - renderDom (optional): The DOM element to render, default is "#app" and must use the ID selector.
->    * - designWidth (optional): The width of the design specification, default is 1920.
->    * - designHeight (optional): The height of the design specification, default is 929. If the project is displayed in fullscreen, it can be set to 1080.
->    *
-
- - resize (optional): Whether to listen for the resize event, default is true.
-> ```
+> *- renderDom: Rendered dom, default to '#app'
+> *- designWidth: The width of the design draft, which defaults to 1920
+> *- designHeight: The height of the design draft, which defaults to 929. If the project is displayed in full screen, it can be set to 1080
+> *- resize: Whether to listen for resize events, default to true
+> *- ignore: ignore the scaled element (which will be scaled in reverse), see readme.md for parameters
+> *- transition: transition time, default is 0.6
+> *- delay: default is 1000
 
 ### Ignoring Certain Elements
 
@@ -99,6 +99,29 @@ autofit.init({
 ```
 
 If the reverse scaling of an element causes the structure to change, you can manually specify the width, height, and playback degree.
+
+### elRectification
+
+Some canvas rendered charts may also have event offsets, and charts are different from maps. When using ignore, overly large charts may not be fully displayed, so 'elCorrection' can be used (performance is not as good as ignore)
+If ignore cannot meet the requirements, you can use ` autofit.elCorrection (".classNameOrId")`
+
+```js
+import { elRectification } from 'autofit.js'
+```
+
+```html
+<div class="G2plot"></div>
+<div class="G2plot"></div>
+<div class="G2plot"></div>
+```
+
+```js
+onMounted(() => {
+  elRectification(".testEl")
+})
+```
+
+When using elCorrection, the element that needs to be corrected has already been mounted
 
 ### Disabling the Effects of autofit.js
 
