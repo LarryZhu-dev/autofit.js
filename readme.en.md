@@ -117,7 +117,7 @@ import { elRectification } from 'autofit.js'
 
 ```js
 onMounted(() => {
-  elRectification(".testEl")
+  elRectification(".G2plot")
 })
 ```
 
