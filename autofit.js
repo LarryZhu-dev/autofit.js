@@ -11,17 +11,22 @@ const autofit = {
     if (isShowInitTip) {
       console.log(`%c` + `autofit.js` + ` is running`, `font-weight: bold; color: #ffb712; background:linear-gradient(-45deg, #bd34fe 50%, #47caff 50% );background: -webkit-linear-gradient( 120deg, #bd34fe 30%, #41d1ff );background-clip: text;-webkit-background-clip: text; -webkit-text-fill-color:linear-gradient( -45deg, #bd34fe 50%, #47caff 50% ); padding: 8px 12px; border-radius: 4px;`);
     }
-    let designWidth = options.designWidth || 1920;
-    let designHeight = options.designHeight || 929;
-    let renderDom = options.renderDom || "#app";
-    let resize = options.resize || true;
-    let ignore = options.ignore || [];
-    let transition = options.transition || 0.6
-    let delay = options.delay || 1000
-    currRenderDom = renderDom;
-    let dom = document.querySelector(renderDom)
+    const {
+      designWidth = 1920,
+      dw = 1920,
+      designHeight = 929,
+      dh = 929,
+      renderDom = typeof options === 'string' ? options : "#app",
+      el = typeof options === 'string' ? options : "#app",
+      resize = true,
+      ignore = [],
+      transition = 'none',
+      delay = 0
+    } = options;
+    currRenderDom = el || renderDom;
+    let dom = document.querySelector(el)
     if (!dom) {
-      console.error(`autofit: '${renderDom}' is not exist`);
+      console.error(`autofit: '${el}' is not exist`);
       return
     }
     const style = document.createElement('style');
@@ -37,16 +42,21 @@ const autofit = {
     `;
     dom.appendChild(style);
     dom.appendChild(ignoreStyle);
-    dom.style.height = `${designHeight}px`;
-    dom.style.width = `${designWidth}px`;
+    dom.style.height = `${dh || designHeight}px`;
+    dom.style.width = `${dw || designWidth}px`;
     dom.style.transformOrigin = `0 0`;
-    keepFit(designWidth, designHeight, dom, ignore);
+    keepFit(dw || designWidth, dh || designHeight, dom, ignore);
     resizeListener = () => {
       clearTimeout(timer)
-      timer = setTimeout(() => {
-        keepFit(designWidth, designHeight, dom, ignore);
+      if (delay != 0)
+        timer = setTimeout(() => {
+          keepFit(dw || designWidth, dh || designHeight, dom, ignore);
+          isElRectification && elRectification(currelRectification, currelRectificationLevel)
+        }, delay)
+      else {
+        keepFit(dw || designWidth, dh || designHeight, dom, ignore);
         isElRectification && elRectification(currelRectification, currelRectificationLevel)
-      }, delay)
+      }
     }
     resize && window.addEventListener('resize', resizeListener)
     isAutofitRunnig = true
@@ -54,12 +64,12 @@ const autofit = {
       dom.style.transition = `${transition}s`
     });
   },
-  off(renderDom = "#app") {
+  off(el = "#app") {
     try {
       isElRectification = false
       window.removeEventListener("resize", resizeListener);
       document.querySelector('#autofit-style').remove();
-      document.querySelector(currRenderDom ? currRenderDom : renderDom).style = '';
+      document.querySelector(currRenderDom ? currRenderDom : el).style = '';
       for (let item of document.querySelectorAll(currelRectification)) {
         item.style.width = ``
         item.style.height = ``
@@ -98,25 +108,35 @@ function elRectification(el, level = 1) {
   }
   isElRectification = true
 }
-function keepFit(designWidth, designHeight, dom, ignore) {
+function keepFit(dw, dh, dom, ignore) {
   let clientHeight = document.documentElement.clientHeight;
   let clientWidth = document.documentElement.clientWidth;
-  currScale = (clientWidth / clientHeight < designWidth / designHeight) ? (clientWidth / designWidth) : (clientHeight / designHeight)
+  currScale = (clientWidth / clientHeight < dw / dh) ? (clientWidth / dw) : (clientHeight / dh)
   dom.style.height = `${clientHeight / currScale}px`;
   dom.style.width = `${clientWidth / currScale}px`;
   dom.style.transform = `scale(${currScale})`
   for (let item of ignore) {
+    let itemEl = item.el || item.dom
+    if (!itemEl) {
+      console.error(`autofit: bad selector: ${itemEl}`)
+      continue
+    }
     let realScale = (item.scale ? item.scale : 1 / currScale)
     let realFontSize = realScale != currScale ? item.fontSize : 'autofit'
     let realWidth = realScale != currScale ? item.width : 'autofit'
     let realHeight = realScale != currScale ? item.height : 'autofit'
-    document.querySelector('#ignoreStyle').innerHTML = `${item.dom}{ 
+    let regex = new RegExp(`${itemEl}(\x20|{)`, 'gm')
+    let isIgnored = regex.test(document.querySelector('#ignoreStyle').innerHTML);
+    if (isIgnored) {
+      continue
+    }
+    document.querySelector('#ignoreStyle').innerHTML += `\n${itemEl} { 
       transform: scale(${realScale})!important;
       transform-origin: 0 0;
       width: ${realWidth}px!important;
       height: ${realHeight}px!important;
     }`;
-    document.querySelector('#ignoreStyle').innerHTML += `${item.dom} div ,${item.dom} span,${item.dom} a,${item.dom} *{
+    document.querySelector('#ignoreStyle').innerHTML += `\n${itemEl} div ,${itemEl} span,${itemEl} a,${itemEl} * {
     font-size: ${realFontSize}px;
     }`;
   }
