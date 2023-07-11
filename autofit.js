@@ -12,18 +12,15 @@ const autofit = {
       console.log(`%c` + `autofit.js` + ` is running`, `font-weight: bold; color: #ffb712; background:linear-gradient(-45deg, #bd34fe 50%, #47caff 50% );background: -webkit-linear-gradient( 120deg, #bd34fe 30%, #41d1ff );background-clip: text;-webkit-background-clip: text; -webkit-text-fill-color:linear-gradient( -45deg, #bd34fe 50%, #47caff 50% ); padding: 8px 12px; border-radius: 4px;`);
     }
     const {
-      designWidth = 1920,
       dw = 1920,
-      designHeight = 929,
       dh = 929,
-      renderDom = typeof options === 'string' ? options : "#app",
       el = typeof options === 'string' ? options : "#app",
       resize = true,
       ignore = [],
       transition = 'none',
       delay = 0
     } = options;
-    currRenderDom = el || renderDom;
+    currRenderDom = el;
     let dom = document.querySelector(el)
     if (!dom) {
       console.error(`autofit: '${el}' is not exist`);
@@ -35,26 +32,22 @@ const autofit = {
     ignoreStyle.lang = 'text/css';
     style.id = 'autofit-style';
     ignoreStyle.id = 'ignoreStyle';
-    style.innerHTML = `
-      body {
-        overflow: hidden;
-      }
-    `;
+    style.innerHTML = `body {overflow: hidden;}`;
     dom.appendChild(style);
     dom.appendChild(ignoreStyle);
-    dom.style.height = `${dh || designHeight}px`;
-    dom.style.width = `${dw || designWidth}px`;
+    dom.style.height = `${dh}px`;
+    dom.style.width = `${dw}px`;
     dom.style.transformOrigin = `0 0`;
-    keepFit(dw || designWidth, dh || designHeight, dom, ignore);
+    keepFit(dw, dh, dom, ignore);
     resizeListener = () => {
       clearTimeout(timer)
       if (delay != 0)
         timer = setTimeout(() => {
-          keepFit(dw || designWidth, dh || designHeight, dom, ignore);
+          keepFit(dw, dh, dom, ignore);
           isElRectification && elRectification(currelRectification, currelRectificationLevel)
         }, delay)
       else {
-        keepFit(dw || designWidth, dh || designHeight, dom, ignore);
+        keepFit(dw, dh, dom, ignore);
         isElRectification && elRectification(currelRectification, currelRectificationLevel)
       }
     }
@@ -70,11 +63,7 @@ const autofit = {
       window.removeEventListener("resize", resizeListener);
       document.querySelector('#autofit-style').remove();
       document.querySelector(currRenderDom ? currRenderDom : el).style = '';
-      for (let item of document.querySelectorAll(currelRectification)) {
-        item.style.width = ``
-        item.style.height = ``
-        item.style.transform = ``
-      }
+      isElRectification && offelRectification()
     } catch (error) {
       console.error(`autofit: Failed to remove normally`, error);
       isAutofitRunnig = false
@@ -108,6 +97,14 @@ function elRectification(el, level = 1) {
   }
   isElRectification = true
 }
+function offelRectification() {
+  if (!currelRectification) return
+  for (let item of document.querySelectorAll(currelRectification)) {
+    item.style.width = ``
+    item.style.height = ``
+    item.style.transform = ``
+  }
+}
 function keepFit(dw, dh, dom, ignore) {
   let clientHeight = document.documentElement.clientHeight;
   let clientWidth = document.documentElement.clientWidth;
@@ -117,6 +114,7 @@ function keepFit(dw, dh, dom, ignore) {
   dom.style.transform = `scale(${currScale})`
   for (let item of ignore) {
     let itemEl = item.el || item.dom
+    typeof item == 'string' && (itemEl = item)
     if (!itemEl) {
       console.error(`autofit: bad selector: ${itemEl}`)
       continue
@@ -133,11 +131,11 @@ function keepFit(dw, dh, dom, ignore) {
     document.querySelector('#ignoreStyle').innerHTML += `\n${itemEl} { 
       transform: scale(${realScale})!important;
       transform-origin: 0 0;
-      width: ${realWidth}px!important;
-      height: ${realHeight}px!important;
+      width: ${realWidth}!important;
+      height: ${realHeight}!important;
     }`;
     document.querySelector('#ignoreStyle').innerHTML += `\n${itemEl} div ,${itemEl} span,${itemEl} a,${itemEl} * {
-    font-size: ${realFontSize}px;
+      font-size: ${realFontSize}px;
     }`;
   }
 }

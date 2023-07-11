@@ -1,29 +1,62 @@
-<div  style='background-image: linear-gradient( -45deg, #bd34fe 50%, #47caff 50% ); filter: blur(72px);border-radius: 50%;width: 280px;height: 280px;position: absolute;top:0;left:50%;    transform: translateX(-50%);'>
-</div>
+![autofitLogo](https://raw.githubusercontent.com/995231030/autofit.js/master/autofit.png)
 
-<img src='https://raw.githubusercontent.com/995231030/autofit.js/master/autofit.png' style='width: 280px;height: 280px;position: absolute;top:0;left:50%;transform: translateX(-50%);' />
-
-<div style='background:linear-gradient( -45deg, #bd34fe 50%, #47caff 50% );background: -webkit-linear-gradient( 120deg, #bd34fe 30%, #41d1ff );background-clip: text;-webkit-background-clip: text;   -webkit-text-fill-color:linear-gradient( -45deg, #bd34fe 50%, #47caff 50% );font-size:56px;position: absolute;top:280px;left:50%;transform: translateX(-50%);'>autofit.js</div>
-
-<div  style='width: 280px;height: 360px;'></div>
+<center><font face="黑体" size=26>autofit.js</font></center>
 
 [简体中文](./readme.md) | English
 
-autofit.js is a tool for making your PC projects adapt to different screen sizes. Its principle is quite simple: it applies a scale transformation while increasing the width or height to fill the entire screen. Autofit.js does not squeeze or stretch elements; it simply sets the container's width and height.
+autofit.js is a tool for making your PC projects responsive to the screen. Its principle is very simple: based on scaling with equal proportions, it increases the width or height to the right or bottom to achieve a full-screen effect. Using autofit.js does not compress or stretch elements; it simply sets the width and height of the container.
 
-| Date       | Version | Description                                  |
-| ---------- | ------- | -------------------------------------------- |
-| 2023-04-16 | v1.0.0  | First release 🥳                              |
-| 2023-04-23 | v1.0.9  | Fixed issues with fullscreen and F11 mode    |
-| 2023-05-12 | v1.1.2  | Added ignore element feature (map hotspots)👍 |
-| 2023-05-22 | v2.0.0  | Added option to disable autofit effects      |
-| 2023-05-30 | v2.0.2  | Improved compatibility and error handling    |
+| Date       | Version | Description                                                  |
+| ---------- | ------- | ------------------------------------------------------------ |
+| 2023-04-16 | v1.0.0  | First version released 🥳                                     |
+| 2023-04-23 | v1.0.9  | Fixed issue with invalidation after maximize/F11             |
+| 2023-05-12 | v1.1.2  | Added ignore element feature (offset for map hotspots)👍      |
+| 2023-05-22 | v2.0.0  | Added option to disable autofit's impact                     |
+| 2023-05-30 | v2.0.2  | Improved compatibility, added error prompts                  |
+| 2023-06-07 | v2.0.3  | Added delay, transition, and chart adaptation                |
+| 2023-06-19 | v2.0.5  | Fixed issue with multiple ignores not working, delay and transition are disabled by default |
+| 2023-07-04 | v2.0.6  | Unreleased - Fixed issue with abnormal off behavior, added undefined ts parameter |
+| 2023-07-11 | v3.0.0  | Improved stability and usability                             |
+
+### v3.0.0 New Version Introduction
+
+Now, `ignore` can be passed as an Array\<string>:
+
+```js
+autofit.init({
+	ignore: ['.leaflet', '.gaodemap']
+})
+```
+
+Now, `ignore` supports width and height with other units:
+
+```js
+autofit.init({
+	ignore: [{
+    	el: '.gaodemap',
+        width: "80%",
+        height: '200px'
+    }]
+})
+```
+
+Starting from v3.0.0 (inclusive), the parameters `designWidth`, `designHeight`, and `renderDom` will no longer be compatible. For field changes, please see the following text. In `ignore`, both the `el` and `dom` parameters (as well as the string format) are still compatible.
+
+Field changes: `designWidth` > `dw`, `designHeight` > `dh`, `renderDom` > `el`
+
+Version 2.0.5 is the last compatible version; afterwards, only the new fields will be supported.
+
+Install the old version:
+
+```shell
+npm i autofit.js@2.0.5
+```
 
 ### autofit.js
 
-autofit.js is a tool that allows your project to adapt to different screen sizes with a single click (formerly vue-autofit).
+autofit.js is a tool that allows your project to be responsive with just one click.
 
-In theory, it supports resolutions lower than or equal to your design specifications.
+In theory, it can support resolutions lower than your design draft.
 
 ### Import
 
@@ -37,7 +70,7 @@ import autofit from 'autofit.js'
 autofit.init()
 ```
 
-> By default, it uses parameters for a resolution of 1920x929 (excluding the browser header). Simply call this method to initialize it.
+> The default parameters are 1920 * 929 (i.e., 1080 minus the browser header). Just call it directly.
 
 ### Usage
 
@@ -45,25 +78,27 @@ autofit.init()
 export default {  
   mounted() {
 	autofit.init({
-        designHeight: 1080,
-        designWidth: 1920,
-        renderDom:"#app",
+        dh: 1080,
+        dw: 1920,
+        el: "#app",
         resize: true
-    },false) // Disable console prompt output
+    }, false) // You can disable console prompt output
   },
 }
 ```
 
-> The above example uses the default parameters. Adjust the parameters according to your needs:
+> The above example uses the default parameters, which can be adjusted according to the actual situation. The optional parameters are:
 >
 > ```js
-> *- renderDom: Rendered dom, default to '#app'
-> *- designWidth: The width of the design draft, which defaults to 1920
-> *- designHeight: The height of the design draft, which defaults to 929. If the project is displayed in full screen, it can be set to 1080
-> *- resize: Whether to listen for resize events, default to true
-> *- ignore: ignore the scaled element (which will be scaled in reverse), see readme.md for parameters
-> *- transition: transition time, default is 0.6
-> *- delay: default is 1000
+>    * - el: The rendering DOM, default is "#app", must use an id selector 
+>    * - dw: Design draft width, default is 1920 
+>    * - dh: Design draft height, default is 929; if the project is displayed in fullscreen, it can be set to 1080
+>    * - resize: Whether to listen for resize events, default is true
+>    * - ignore: Elements to be ignored in scaling (these elements will be inversely scaled), parameters can be found in readme.md
+>    * - transition: Transition time, default is 0
+>    * - delay: Default is 0
+> 
+> ```
 
 ### Ignoring Certain Elements
 
@@ -71,13 +106,13 @@ export default {
 autofit.init({
   ignore: [
      { 
-      dom: ".gaodeMap",
+      el: ".gaodeMap",
      },
   ]
 })
 ```
 
-Use the `ignore` option to exclude specific elements from being scaled.
+Pass in `ignore` to exclude elements from scaling.
 
 More personalized settings:
 
@@ -85,11 +120,11 @@ More personalized settings:
 autofit.init({
   ignore: [
     {
-      dom: ".gaodeMap", // Required
-      height: 300, // Optional: specify the height in pixels
-      width: 300, // Optional: specify the width in pixels
-      scale: 1.2, // Optional: playback degree based on the scaled size of the main element
-      fontSize: 26 // Optional: if the custom scaled font size is not suitable, you can set it here
+      el: ".gaodeMap", // Required
+      height: "300px", // Optional
+      width: "80%", // Optional
+      scale: 1.2, // Optional: playback degree, based on the size of the main element after scaling
+      fontSize: 26 // Optional, if the custom scaled text size is not suitable, you can set the font size here
     },
     {
         //...
@@ -98,12 +133,21 @@ autofit.init({
 })
 ```
 
-If the reverse scaling of an element causes the structure to change, you can manually specify the width, height, and playback degree.
+If the size of the element after inverse scaling changes the structure, you can manually pass the width, height, and playback degree.
+
+`ignore` also supports passing string arrays:
+
+```js
+autofit.init({
+  ignore: ['.gaodeMap', '.leaflet', '#someElementClassOrId']
+})
+```
 
 ### elRectification
 
-Some canvas rendered charts may also have event offsets, and charts are different from maps. When using ignore, overly large charts may not be fully displayed, so 'elCorrection' can be used (performance is not as good as ignore)
-If ignore cannot meet the requirements, you can use ` autofit.elCorrection (".classNameOrId")`
+Some charts rendered using canvas may also have event offsets. Unlike maps, large charts may not be fully displayed when using `ignore`. In this case, you can use `elRectification` (not as efficient as `ignore`).
+
+If `ignore` does not meet the requirements, you can use `autofit.elRectification(".classNameOrId")`.
 
 ```js
 import { elRectification } from 'autofit.js'
@@ -121,9 +165,11 @@ onMounted(() => {
 })
 ```
 
-When using elCorrection, the element that needs to be corrected has already been mounted
+When using `elRectification`, the element to be rectified must already be mounted.
 
-### Disabling the Effects of autofit.js
+### Disabling the Impact of autofit.js
+
+When autofit is not initialized, an error will occur if the element cannot be found. Before using `autofit.off()`, make sure it has been initialized.
 
 ```js
 autofit.off()

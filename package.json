@@ -1,6 +1,6 @@
 {
   "name": "autofit.js",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "description": "autofit.js 是迄今为止最易用的自适应工具",
   "main": "autofit.js",
   "scripts": {
@@ -11,12 +11,15 @@
     "url": "https://github.com/995231030/autofit.js.git"
   },
   "keywords": [
-    "可视化",
-    "v-bigscreen",
-    "v-scale-screen",
-    "auto-zoom",
-    "自适应",
     "大屏",
+    "自适应",
+    "可视化",
+    "适配",
+    "vue3",
+    "vue",
+    "react",
+    "echarts",
+    "auto-zoom",
     "autofit",
     "auto-fit",
     "vue-autofit",

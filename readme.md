@@ -1,10 +1,8 @@
-<div  style='background-image: linear-gradient( -45deg, #bd34fe 50%, #47caff 50% ); filter: blur(72px);border-radius: 50%;width: 280px;height: 280px;position: absolute;top:0;left:50%;    transform: translateX(-50%);'>
-</div>
-<img src='https://raw.githubusercontent.com/995231030/autofit.js/master/autofit.png' style='width: 280px;height: 280px;position: absolute;top:0;left:50%;transform: translateX(-50%);' />
+![autofitLogo](https://raw.githubusercontent.com/995231030/autofit.js/master/autofit.png)
 
-<div style='background:linear-gradient( -45deg, #bd34fe 50%, #47caff 50% );background: -webkit-linear-gradient( 120deg, #bd34fe 30%, #41d1ff );background-clip: text;-webkit-background-clip: text;   -webkit-text-fill-color:linear-gradient( -45deg, #bd34fe 50%, #47caff 50% );font-size:56px;position: absolute;top:280px;left:50%;transform: translateX(-50%);'>autofit.js</div>
+<center><font face="黑体" size=26>autofit.js</font></center>
 
-<div  style='width: 280px;height: 360px;'></div>
+
 
 简体中文 | [English](./readme.en.md)
 
@@ -13,23 +11,59 @@ autofit.js是一个可以让你的PC项目自适应屏幕的工具，其原理�
 
 
 
-| 时间       | 版本   | 描述                                           |
-| ---------- | ------ | ---------------------------------------------- |
-| 2023-04-16 | v1.0.0 | 第一个版本发布 🥳                               |
-| 2023-04-23 | v1.0.9 | 解决最大化、f11全屏后失效的问题                |
-| 2023-05-12 | v1.1.2 | 新增忽略元素功能（地图热区事件偏移解决）👍      |
-| 2023-05-22 | v2.0.0 | 新增关闭autofit影响选项                        |
-| 2023-05-30 | v2.0.2 | 增加兼容性，新增错误提示                       |
-| 2023-06-07 | v2.0.3 | 新增延迟、过渡、图表适配                       |
-| 2023-06-19 | v2.0.5 | 修复多个ignore不生效的问题，默认关闭延迟和过渡 |
+| 时间       | 版本   | 描述                                              |
+| ---------- | ------ | ------------------------------------------------- |
+| 2023-04-16 | v1.0.0 | 第一个版本发布 🥳                                  |
+| 2023-04-23 | v1.0.9 | 解决最大化、f11全屏后失效的问题                   |
+| 2023-05-12 | v1.1.2 | 新增忽略元素功能（地图热区事件偏移解决）👍         |
+| 2023-05-22 | v2.0.0 | 新增关闭autofit影响选项                           |
+| 2023-05-30 | v2.0.2 | 增加兼容性，新增错误提示                          |
+| 2023-06-07 | v2.0.3 | 新增延迟、过渡、图表适配                          |
+| 2023-06-19 | v2.0.5 | 修复多个ignore不生效的问题，默认关闭延迟和过渡    |
+| 2023-07-04 | v2.0.6 | 未发布-修复无法正常off的问题，新增ts参数undefined |
+| 2023-07-11 | v3.0.0 | 提升稳定性，提升易用性                            |
+
+### v3.0.0 新版介绍
+
+igonre 现在可以传入 Array\<string> 了 ，即：
+
+```js
+autofit.init({
+	ignore:['.leaflet','.gaodemap']
+})
+```
+
+现在ignore的宽高支持其他单位，即：
+
+```js
+autofit.init({
+	ignore:[{
+    	el:'.gaodemap',
+        width:"80%",
+        height:'200px'
+    }]
+})
+```
+
+在v3.0.0(包括)之后，参数将不再兼容designWidth 、designHeight 、renderDom ，字段变化请看下文。在ignore中，依然兼容 el 、dom参数两种写法（以及字符串写法）。
+
+
 
 字段变化：`designWidth > dw ` `designHeight > dh` `renderDom > el`
 
 v2.0.5 版本是最后一个兼容版本，之后将只支持新字段
 
+安装旧版：
+
+```shell
+npm i autofit.js@2.0.5
+```
+
+
+
 ### autofit.js
 
-autofit.js 这是一款可以使你的项目一键自适应的工具 (原vue-autofit)
+autofit.js 这是一款可以使你的项目一键自适应的工具
 
 理论上可以支持从你的设计稿以下的分辨率。
 
@@ -70,8 +104,8 @@ export default {
 >    * - dh：设计稿的高度，默认是 929 ，如果项目以全屏展示，则可以设置为1080
 >    * - resize：是否监听resize事件，默认是 true
 >    * - ignore：忽略缩放的元素（该元素将反向缩放），参数见readme.md
->    * - transition：过渡时间，默认是 0.6
->    * - delay：默认是 1000
+>    * - transition：过渡时间，默认是 0
+>    * - delay：默认是 0
 > 
 > ```
 
@@ -81,7 +115,7 @@ export default {
 autofit.init({
   ignore: [
      { 
-      dom: ".gaodeMap",
+      el: ".gaodeMap",
      },
   ]
 })
@@ -95,9 +129,9 @@ autofit.init({
 autofit.init({
   ignore: [
     {
-      dom: ".gaodeMap", //必填
-      height: 300,//可选，写数字即可（px）
-      width: 300,//可选，写数字即可（px）
+      el: ".gaodeMap", //必填
+      height: "300px",//可选，需注明单位
+      width: "80%",//可选，需注明单位
       scale:1.2, //可选：回放程度，基于主元素缩放后的大小
       fontSize:26 //可选，如果自定义缩放后文字大小不合适，可以在这里设置文字大小
     },
@@ -109,6 +143,16 @@ autofit.init({
 ```
 
 如果反向缩放后的元素大小使结构发生变化，你还可以手动传入宽高、回放程度。
+
+ignore还支持传入字符串数组：
+
+```js
+autofit.init({
+  ignore: ['.gaodeMap','.leaflet','#someElementClassOrId']
+})
+```
+
+
 
 ### elRectification
 
@@ -135,6 +179,8 @@ onMounted(() => {
 使用 elRectification 时，需要被矫正的元素已经挂载
 
 ### 关闭 autofit.js造成的影响
+
+当autofit未初始化时，会出现无法找到元素的错误，在使用autofit.off()前，请确保已初始化。
 
 ```js
 autofit.off()
