@@ -1,3 +1,25 @@
+/*
+ * @Author: Mr.Cong Wei
+ * @Date: 2023-07-11 20:06:27
+ * @LastEditTime: 2023-07-11 20:44:55
+ */
+export interface IgnoreOption{
+  el: string,
+  height?: string,
+  width?: string,
+  scale?: number,
+  fontSize?: number,
+}
+
+export interface AutofitOption{
+  el?: string,
+  dw?: number,
+  dh?: number,
+  resize?: boolean,
+  ignore?: (IgnoreOption|string)[],
+  transition?: number,
+  delay?: number,
+}
 declare interface autofit {
   /**
    * 参数列表
@@ -13,17 +35,17 @@ declare interface autofit {
    * - transition（可选）：过渡时间，默认是 0
    * - delay（可选）：延迟，默认是 0
   */
-  init(options: { el: String, dw: Number, dh: Number, resize: Boolean, ignore: Array<Object | String>, transition: Number, delay: Number } | String | undefined): void;
+  init(options: AutofitOption | String | undefined): void;
   /**
    * @param {String} id 
    * 关闭autofit.js造成的影响
    * 
   */
-  off(id: String | undefined): void;
+   off(id?: string): void;
 }
 declare const autofit: autofit;
 
-declare function elRectification(el: String, level: Number | undefined): void;
+declare function elRectification(el: string, level?: number): void;
 
 export default autofit;
 
