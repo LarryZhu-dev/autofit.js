@@ -111,7 +111,9 @@ function keepFit(dw, dh, dom, ignore) {
   currScale = (clientWidth / clientHeight < dw / dh) ? (clientWidth / dw) : (clientHeight / dh)
   dom.style.height = `${clientHeight / currScale}px`;
   dom.style.width = `${clientWidth / currScale}px`;
-  dom.style.transform = `scale(${currScale})`
+  dom.style.transform = `scale(${currScale})`;
+  const ignoreStyleDOM = document.querySelector('#ignoreStyle');
+  ignoreStyleDOM.innerHTML = ''
   for (let item of ignore) {
     let itemEl = item.el || item.dom
     typeof item == 'string' && (itemEl = item)
@@ -124,19 +126,21 @@ function keepFit(dw, dh, dom, ignore) {
     let realWidth = realScale != currScale ? item.width : 'autofit'
     let realHeight = realScale != currScale ? item.height : 'autofit'
     let regex = new RegExp(`${itemEl}(\x20|{)`, 'gm')
-    let isIgnored = regex.test(document.querySelector('#ignoreStyle').innerHTML);
+    let isIgnored = regex.test(ignoreStyleDOM.innerHTML);
     if (isIgnored) {
       continue
     }
-    document.querySelector('#ignoreStyle').innerHTML += `\n${itemEl} { 
+    ignoreStyleDOM.innerHTML += `\n${itemEl} { 
       transform: scale(${realScale})!important;
       transform-origin: 0 0;
       width: ${realWidth}!important;
       height: ${realHeight}!important;
     }`;
-    document.querySelector('#ignoreStyle').innerHTML += `\n${itemEl} div ,${itemEl} span,${itemEl} a,${itemEl} * {
-      font-size: ${realFontSize}px;
-    }`;
+    if (realFontSize) {
+      ignoreStyleDOM.innerHTML += `\n${itemEl} div ,${itemEl} span,${itemEl} a,${itemEl} * {
+        font-size: ${realFontSize}px;
+      }`;
+    }
   }
 }
 export {
