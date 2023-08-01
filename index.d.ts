@@ -19,7 +19,8 @@ declare interface autofit {
    * 参数列表
    * 对象：
    *
-   * @param {Object|String|undefined} options
+   * @param {AutofitOption|String|undefined} options
+   * @param {boolean|undefined} isShowInitTip
    * - 传入对象，对象中的属性如下：
    * - el（可选）：渲染的元素，默认是 "#app"
    * - dw（可选）：设计稿的宽度，默认是 1920
@@ -29,7 +30,7 @@ declare interface autofit {
    * - transition（可选）：过渡时间，默认是 0
    * - delay（可选）：延迟，默认是 0
    */
-  init(options: AutofitOption | String | undefined): void;
+  init(options?: AutofitOption | String, isShowInitTip?: boolean): void;
   /**
    * @param {String} id
    * 关闭autofit.js造成的影响
