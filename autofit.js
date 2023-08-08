@@ -33,11 +33,13 @@ const autofit = {
     style.id = 'autofit-style';
     ignoreStyle.id = 'ignoreStyle';
     style.innerHTML = `body {overflow: hidden;}`;
-    dom.appendChild(style);
-    dom.appendChild(ignoreStyle);
+    const bodyEl = document.querySelector('body')
+    bodyEl.appendChild(style);
+    bodyEl.appendChild(ignoreStyle);
     dom.style.height = `${dh}px`;
     dom.style.width = `${dw}px`;
     dom.style.transformOrigin = `0 0`;
+    dom.style.overflow = "hidden";
     keepFit(dw, dh, dom, ignore);
     resizeListener = () => {
       clearTimeout(timer)
