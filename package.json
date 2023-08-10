@@ -11,6 +11,7 @@
     "type": "git",
     "url": "https://github.com/995231030/autofit.js.git"
   },
+  "homepage": "https://github.com/vuejs/core/tree/main/packages/vue#readme",
   "keywords": [
     "大屏",
     "自适应",

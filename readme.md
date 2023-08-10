@@ -1,6 +1,15 @@
-![autofitLogo](https://raw.githubusercontent.com/995231030/autofit.js/master/autofit.png)
 
-<center><font face="黑体" size=26>autofit.js</font></center>
+<p align="center">
+  <a target="_blank" href="https://jshub.cn/">
+  <img alt="special sponsor appwrite" src="https://raw.githubusercontent.com/995231030/autofit.js/master/autofit.png" width="300">
+  </a>
+</p>
+
+<p align="center">
+  <h3 align="center">autofit.js</h3>
+</p>
+
+<center><font face="黑体" size=26></font></center>
 
 
 
