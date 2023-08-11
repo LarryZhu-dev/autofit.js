@@ -64,6 +64,8 @@ const autofit = {
       isElRectification = false
       window.removeEventListener("resize", resizeListener);
       document.querySelector('#autofit-style').remove();
+      const ignoreStyleDOM = document.querySelector('#ignoreStyle');
+      ignoreStyleDOM && ignoreStyleDOM.remove()
       document.querySelector(currRenderDom ? currRenderDom : el).style = '';
       isElRectification && offelRectification()
     } catch (error) {
