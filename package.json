@@ -1,34 +1,15 @@
 {
-  "name": "autofit.js",
-  "version": "3.0.2",
-  "description": "autofit.js 是迄今为止最易用的自适应工具",
-  "main": "autofit.js",
-  "types": "./index.d.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/995231030/autofit.js.git"
-  },
-  "homepage": "https://github.com/vuejs/core/tree/main/packages/vue#readme",
-  "keywords": [
-    "大屏",
-    "自适应",
-    "可视化",
-    "适配",
-    "vue3",
-    "vue",
-    "react",
-    "echarts",
-    "auto-zoom",
-    "autofit",
-    "auto-fit",
-    "vue-autofit",
-    "fit",
-    "vue-fit",
-    "autofit.js"
-  ],
-  "author": "Larry Zhu",
-  "license": "MIT"
+    "name": "root",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "vite": "^4.4.11"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }
