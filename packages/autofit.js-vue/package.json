@@ -1,0 +1,27 @@
+{
+    "name": "autofit.js-vue",
+    "version": "0.0.1",
+    "license": "MIT",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/beehive-insight/autofit.js"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vue-tsc && vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "autofit.js": "workspace:*"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^4.2.3",
+        "vue": "^3.3.4"
+    }
+}

@@ -7,7 +7,12 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
-        "vite": "^4.4.11"
+        "vite": "^4.4.11",
+        "vite-plugin-dts": "2.1.0",
+        "@vitejs/plugin-vue": "^4.2.3",
+        "vue-tsc": "^1.8.5",
+        "prettier": "^3.0.3",
+        "typescript": "^5.2.2"
     },
     "keywords": [],
     "author": "",

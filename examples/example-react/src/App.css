@@ -1,0 +1,26 @@
+.container {
+    background-color: aliceblue;
+    position: relative;
+}
+
+.block-1 {
+    padding: 10px;
+    background-color: aquamarine;
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    width: 500px;
+    height: 200px;
+    border: 1px solid #000;
+}
+
+.block-2 {
+    padding: 10px;
+    background-color: beige;
+    position: absolute;
+    left: 600px;
+    top: 20px;
+    width: calc(100% - 1200px);
+    height: calc(100% - 100px);
+    border: 1px solid #000;
+}
