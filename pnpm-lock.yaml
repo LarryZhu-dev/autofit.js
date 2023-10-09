@@ -35,13 +35,22 @@ importers:
       echarts:
         specifier: 5.4.3
         version: 5.4.3
+      leaflet:
+        specifier: ^1.9.4
+        version: 1.9.4
       react:
         specifier: ^18.2.0
         version: 18.2.0
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      react-leaflet:
+        specifier: ^4.2.1
+        version: 4.2.1(leaflet@1.9.4)(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
+      '@types/leaflet':
+        specifier: ^1.9.6
+        version: 1.9.6
       '@types/react':
         specifier: ^18.2.15
         version: 18.2.25
@@ -663,6 +672,18 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
+  /@react-leaflet/core@2.1.0(leaflet@1.9.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Qk7Pfu8BSarKGqILj4x7bCSZ1pjuAPZ+qmRwH5S7mDS91VSbVVsJSrW4qA+GPrro8t69gFYVMWb1Zc4yFmPiVg==}
+    peerDependencies:
+      leaflet: ^1.9.0
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      leaflet: 1.9.4
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /@rollup/pluginutils@5.0.5:
     resolution: {integrity: sha512-6aEYR910NyP73oHiJglti74iRyOwgFU4x3meH/H8OJx6Ry0j6cOVZ5X/wTvub7G7Ao6qaHBEaNsV3GLJkSsF+Q==}
     engines: {node: '>=14.0.0'}
@@ -883,8 +904,18 @@ packages:
     resolution: {integrity: sha512-VeiPZ9MMwXjO32/Xu7+OwflfmeoRwkE/qzndw42gGtgJwZopBnzy2gD//NN1+go1mADzkDcqf/KnFRSjTJ8xJA==}
     dev: false
 
+  /@types/geojson@7946.0.11:
+    resolution: {integrity: sha512-L7A0AINMXQpVwxHJ4jxD6/XjZ4NDufaRlUJHjNIFKYUFBH1SvOW+neaqb0VTRSLW5suSrSu19ObFEFnfNcr+qg==}
+    dev: true
+
   /@types/json-schema@7.0.13:
     resolution: {integrity: sha512-RbSSoHliUbnXj3ny0CNFOoxrIDV6SUGyStHsvDqosw6CkdPV8TtWGlfecuK4ToyMEAql6pzNxgCFKanovUzlgQ==}
+    dev: true
+
+  /@types/leaflet@1.9.6:
+    resolution: {integrity: sha512-HakGTK5LBBWegNWsAmTlG55zN1zszYec7aG47/z6SzT90bW2vqjmbqk3YKAbrtveO+G7fSTKTYqVbIwAFnTrbg==}
+    dependencies:
+      '@types/geojson': 7946.0.11
     dev: true
 
   /@types/prop-types@15.7.8:
@@ -1865,6 +1896,10 @@ packages:
     resolution: {integrity: sha512-Y+60/zizpJ3HRH8DCss+q95yr6145JXZo46OTpFvDZWLfRCE4qChOyk1b26nMaNpfHHgxagk9dXT5OP0Tfe+dQ==}
     dev: false
 
+  /leaflet@1.9.4:
+    resolution: {integrity: sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA==}
+    dev: false
+
   /levn@0.4.1:
     resolution: {integrity: sha1-rkViwAdHO5MqYgDUAyaN0v/8at4=}
     engines: {node: '>= 0.8.0'}
@@ -2092,6 +2127,19 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-leaflet@4.2.1(leaflet@1.9.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-p9chkvhcKrWn/H/1FFeVSqLdReGwn2qmiobOQGO3BifX+/vV/39qhY8dGqbdcPh1e6jxh/QHriLXr7a4eLFK4Q==}
+    peerDependencies:
+      leaflet: ^1.9.0
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      '@react-leaflet/core': 2.1.0(leaflet@1.9.4)(react-dom@18.2.0)(react@18.2.0)
+      leaflet: 1.9.4
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-refresh@0.14.0:

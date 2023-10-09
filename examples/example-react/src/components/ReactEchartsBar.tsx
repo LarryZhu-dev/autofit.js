@@ -1,5 +1,6 @@
 import * as ec from "echarts";
 import { useEffect, useRef } from "react";
+import { resizeObserver } from "./utils";
 
 export const ReactEchartsBar = () => {
     const ref = useRef<HTMLDivElement>(null);
@@ -26,6 +27,13 @@ export const ReactEchartsBar = () => {
                 },
             ],
         });
+
+        const off = resizeObserver(ref, () => {
+            chart.resize();
+        });
+        return () => {
+            off();
+        };
     }, []);
 
     return <div ref={ref} style={{ width: "100%", height: "100%" }}></div>;

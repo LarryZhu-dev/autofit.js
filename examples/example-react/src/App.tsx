@@ -1,5 +1,6 @@
 import { AutoFit } from "autofit.js-react";
 import { ReactEchartsBar } from "./components/ReactEchartsBar";
+import { ReactLeafletMap } from "./components/ReactLeafletMap";
 import "./App.css";
 
 function App() {
@@ -10,6 +11,9 @@ function App() {
             </div>
             <div className="block-2">
                 <ReactEchartsBar />
+            </div>
+            <div className="block-3">
+                <ReactLeafletMap />
             </div>
         </AutoFit>
     );

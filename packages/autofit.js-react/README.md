@@ -1,6 +1,6 @@
 # autofit.js-react
 
-# usage
+## usage
 
 ```tsx
 import { AutoFit } from "autofit.js-react";
@@ -17,3 +17,7 @@ function App() {
 
 export default App;
 ```
+
+## 示例截图
+
+![image-20231009140542025](./docs/images/image-20231009140542025.png)

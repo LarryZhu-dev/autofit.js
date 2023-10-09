@@ -1,6 +1,6 @@
 # autofit.js-vue
 
-# usage
+## usage
 
 ```vue
 <script setup lang="ts">

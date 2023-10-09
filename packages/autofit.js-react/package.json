@@ -1,12 +1,13 @@
 {
     "name": "autofit.js-react",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "./dist/index.js",
     "license": "MIT",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "files": [
-        "dist"
+        "dist",
+        "docs"
     ],
     "repository": {
         "type": "git",
