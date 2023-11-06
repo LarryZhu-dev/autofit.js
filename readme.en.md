@@ -80,7 +80,7 @@ export default {
 	autofit.init({
         dh: 1080,
         dw: 1920,
-        el: "#app",
+        el: "body",
         resize: true
     }, false) // You can disable console prompt output
   },
@@ -90,9 +90,9 @@ export default {
 > The above example uses the default parameters, which can be adjusted according to the actual situation. The optional parameters are:
 >
 > ```js
->    * - el: The rendering DOM, default is "#app", must use an id selector 
+>    * - el: The rendering DOM, default is "body", must use an id selector 
 >    * - dw: Design draft width, default is 1920 
->    * - dh: Design draft height, default is 929; if the project is displayed in fullscreen, it can be set to 1080
+>    * - dh: Design draft height, default is 1080
 >    * - resize: Whether to listen for resize events, default is true
 >    * - ignore: Elements to be ignored in scaling (these elements will be inversely scaled), parameters can be found in readme.md
 >    * - transition: Transition time, default is 0

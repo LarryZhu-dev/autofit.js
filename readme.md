@@ -1,16 +1,13 @@
 
 <p align="center">
   <a target="_blank" href="https://jshub.cn/">
-  <img alt="special sponsor appwrite" src="https://raw.githubusercontent.com/995231030/autofit.js/master/autofit.png" width="300">
+  <img alt="autofit" src="https://raw.githubusercontent.com/995231030/autofit.js/master/autofit.png" width="300">
   </a>
 </p>
 
 <p align="center">
   <h3 align="center">autofit.js</h3>
 </p>
-
-<center><font face="黑体" size=26></font></center>
-
 
 
 简体中文 | [English](./readme.en.md)
@@ -98,7 +95,7 @@ export default {
 	autofit.init({
         dh: 1080,
         dw: 1920,
-        el:"#app",
+        el:"body",
         resize: true
     },false) // 可关闭控制台运行提示输出
   },
@@ -108,9 +105,9 @@ export default {
 > 以上使用的是默认参数，可根据实际情况调整，可选参数有
 >
 > ```js
->    * - el：渲染的dom，默认是 "#app"，必须使用id选择器 
+>    * - el：渲染的dom，默认是 "body"，必须使用id选择器 
 >    * - dw：设计稿的宽度，默认是 1920 
->    * - dh：设计稿的高度，默认是 929 ，如果项目以全屏展示，则可以设置为1080
+>    * - dh：设计稿的高度，默认是 1080
 >    * - resize：是否监听resize事件，默认是 true
 >    * - ignore：忽略缩放的元素（该元素将反向缩放），参数见readme.md
 >    * - transition：过渡时间，默认是 0
