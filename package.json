@@ -1,6 +1,6 @@
 {
   "name": "autofit.js",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "autofit.js 是迄今为止最易用的自适应工具",
   "main": "autofit.js",
   "types": "./index.d.ts",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/995231030/autofit.js.git"
+    "url": "https://github.com/LarryZhu-dev/autofit.js"
   },
   "homepage": "https://jshub.cn",
   "keywords": [

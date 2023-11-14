@@ -79,7 +79,7 @@ const autofit = {
   },
 };
 function elRectification(el, level = 1) {
-  if (!this.isAutofitRunnig) {
+  if (!autofit.isAutofitRunnig) {
     console.error("autofit.js：autofit has not been initialized yet");
   }
   !el && console.error(`autofit.js：bad selector: ${el}`);
