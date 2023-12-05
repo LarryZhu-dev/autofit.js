@@ -13,6 +13,7 @@ export interface AutofitOption {
   ignore?: (IgnoreOption | string)[];
   transition?: number;
   delay?: number;
+  limit?: number;
 }
 declare interface autofit {
   /**

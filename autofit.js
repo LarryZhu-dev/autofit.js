@@ -9,7 +9,7 @@ const autofit = {
   isAutofitRunnig: false,
   init(options = {}, isShowInitTip = true) {
     if (isShowInitTip) {
-      console.log( `autofit.js is running`);
+      console.log(`autofit.js is running`);
     }
     const {
       dw = 1920,
@@ -19,6 +19,7 @@ const autofit = {
       ignore = [],
       transition = "none",
       delay = 0,
+      limit = 0.1,
     } = options;
     currRenderDom = el;
     let dom = document.querySelector(el);
@@ -40,17 +41,17 @@ const autofit = {
     dom.style.width = `${dw}px`;
     dom.style.transformOrigin = `0 0`;
     dom.style.overflow = "hidden";
-    keepFit(dw, dh, dom, ignore);
+    keepFit(dw, dh, dom, ignore, limit);
     resizeListener = () => {
       clearTimeout(timer);
       if (delay != 0)
         timer = setTimeout(() => {
-          keepFit(dw, dh, dom, ignore);
+          keepFit(dw, dh, dom, ignore, limit);
           isElRectification &&
             elRectification(currelRectification, currelRectificationLevel);
         }, delay);
       else {
-        keepFit(dw, dh, dom, ignore);
+        keepFit(dw, dh, dom, ignore, limit);
         isElRectification &&
           elRectification(currelRectification, currelRectificationLevel);
       }
@@ -74,8 +75,7 @@ const autofit = {
       console.error(`autofit: Failed to remove normally`, error);
       this.isAutofitRunnig = false;
     }
-    this.isAutofitRunnig &&
-      console.log(`autofit.js is off`);
+    this.isAutofitRunnig && console.log(`autofit.js is off`);
   },
 };
 function elRectification(el, level = 1) {
@@ -111,13 +111,16 @@ function offelRectification() {
     item.style.transform = ``;
   }
 }
-function keepFit(dw, dh, dom, ignore) {
+function keepFit(dw, dh, dom, ignore, limit) {
   let clientHeight = document.documentElement.clientHeight;
   let clientWidth = document.documentElement.clientWidth;
   currScale =
     clientWidth / clientHeight < dw / dh ? clientWidth / dw : clientHeight / dh;
-  dom.style.height = `${clientHeight / currScale}px`;
-  dom.style.width = `${clientWidth / currScale}px`;
+  currScale = Math.abs(1 - currScale) > limit ? currScale.toFixed(2) : 1;
+  let height = Math.round(clientHeight / currScale);
+  let width = Math.round(clientWidth / currScale);
+  dom.style.height = `${height}px`;
+  dom.style.width = `${width}px`;
   dom.style.transform = `scale(${currScale})`;
   const ignoreStyleDOM = document.querySelector("#ignoreStyle");
   ignoreStyleDOM.innerHTML = "";
