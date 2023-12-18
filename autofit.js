@@ -1,6 +1,7 @@
 let currRenderDom = null;
 let currelRectification = "";
 let currelRectificationLevel = "";
+let currelRectificationResponsive = "";
 let resizeListener = null;
 let timer = null;
 let currScale = 1;
@@ -48,12 +49,12 @@ const autofit = {
         timer = setTimeout(() => {
           keepFit(dw, dh, dom, ignore, limit);
           isElRectification &&
-            elRectification(currelRectification, currelRectificationLevel);
+            elRectification(currelRectification, currelRectificationResponsive,currelRectificationLevel);
         }, delay);
       else {
         keepFit(dw, dh, dom, ignore, limit);
         isElRectification &&
-          elRectification(currelRectification, currelRectificationLevel);
+          elRectification(currelRectification,currelRectificationResponsive, currelRectificationLevel);
       }
     };
     resize && window.addEventListener("resize", resizeListener);
@@ -78,13 +79,14 @@ const autofit = {
     this.isAutofitRunnig && console.log(`autofit.js is off`);
   },
 };
-function elRectification(el, level = 1) {
+function elRectification(el,isResponsive = true, level = 1) {
   if (!autofit.isAutofitRunnig) {
     console.error("autofit.js：autofit has not been initialized yet");
   }
   !el && console.error(`autofit.js：bad selector: ${el}`);
   currelRectification = el;
   currelRectificationLevel = level;
+  currelRectificationResponsive = isResponsive;
   const currEl = document.querySelectorAll(el);
   if (currEl.length == 0) {
     console.error("autofit.js：elRectification found no element");
@@ -92,8 +94,17 @@ function elRectification(el, level = 1) {
   }
   for (let item of currEl) {
     let rectification = currScale == 1 ? 1 : currScale * level;
-    item.style.width = `${100 * rectification}%`;
-    item.style.height = `${100 * rectification}%`;
+    if (!isElRectification) {
+      item.originalWidth = item.clientWidth;
+      item.originalHeight = item.clientHeight;
+    }
+    if (isResponsive) {
+			item.style.width = `${100 * rectification}%`;
+			item.style.height = `${100 * rectification}%`;
+		} else {
+			item.style.width = `${item.originalWidth * rectification}px`;
+			item.style.height = `${item.originalHeight * rectification}px`;
+		}
     item.style.transform = `scale(${1 / currScale})`;
     item.style.transformOrigin = `0 0`;
   }
