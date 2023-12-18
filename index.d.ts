@@ -45,7 +45,12 @@ declare interface autofit {
 }
 declare const autofit: autofit;
 
-declare function elRectification(el: string, level?: number): void;
+/**
+ * @param {string} el - 待处理的元素选择器
+ * @param {boolean} isKeepRatio - 是否保持纵横比（可选，默认为true，false时将充满父元素）
+ * @param {number|undefined} level - 缩放等级，用于手动调整缩放程度(可选，默认为 1)
+ */
+declare function elRectification(el: string,isKeepRatio?:boolean,level?: number): void;
 
 export default autofit;
 
