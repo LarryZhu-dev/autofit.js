@@ -49,12 +49,12 @@ const autofit = {
         timer = setTimeout(() => {
           keepFit(dw, dh, dom, ignore, limit);
           isElRectification &&
-            elRectification(currelRectification, currelRectificationResponsive,currelRectificationLevel);
+            elRectification(currelRectification, currelRectificationIsKeepRatio,currelRectificationLevel);
         }, delay);
       else {
         keepFit(dw, dh, dom, ignore, limit);
         isElRectification &&
-          elRectification(currelRectification,currelRectificationResponsive, currelRectificationLevel);
+          elRectification(currelRectification,currelRectificationIsKeepRatio, currelRectificationLevel);
       }
     };
     resize && window.addEventListener("resize", resizeListener);
