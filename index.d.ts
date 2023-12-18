@@ -47,10 +47,10 @@ declare const autofit: autofit;
 
 /**
  * @param {string} el - 待处理的元素选择器
- * @param {boolean} isResponsive - 是否启用响应式处理(可选，默认为 true)
- * @param {number|undefined} level - 缩放等级(可选，默认为 1)，用于手动调整缩放程度
+ * @param {boolean} isKeepRatio - 是否保持纵横比（可选，默认为true，false时将充满父元素）
+ * @param {number|undefined} level - 缩放等级，用于手动调整缩放程度(可选，默认为 1)
  */
-declare function elRectification(el: string,isResponsive?:boolean,level?: number): void;
+declare function elRectification(el: string,isKeepRatio?:boolean,level?: number): void;
 
 export default autofit;
 

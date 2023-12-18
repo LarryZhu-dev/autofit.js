@@ -1,7 +1,7 @@
 let currRenderDom = null;
 let currelRectification = "";
 let currelRectificationLevel = "";
-let currelRectificationResponsive = "";
+let currelRectificationIsKeepRatio = "";
 let resizeListener = null;
 let timer = null;
 let currScale = 1;
@@ -79,14 +79,14 @@ const autofit = {
     this.isAutofitRunnig && console.log(`autofit.js is off`);
   },
 };
-function elRectification(el,isResponsive = true, level = 1) {
+function elRectification(el,isKeepRatio = true, level = 1) {
   if (!autofit.isAutofitRunnig) {
     console.error("autofit.js：autofit has not been initialized yet");
   }
   !el && console.error(`autofit.js：bad selector: ${el}`);
   currelRectification = el;
   currelRectificationLevel = level;
-  currelRectificationResponsive = isResponsive;
+  currelRectificationIsKeepRatio = isKeepRatio;
   const currEl = document.querySelectorAll(el);
   if (currEl.length == 0) {
     console.error("autofit.js：elRectification found no element");
@@ -98,12 +98,12 @@ function elRectification(el,isResponsive = true, level = 1) {
       item.originalWidth = item.clientWidth;
       item.originalHeight = item.clientHeight;
     }
-    if (isResponsive) {
+    if (isKeepRatio) {
+      item.style.width = `${item.originalWidth * rectification}px`;
+			item.style.height = `${item.originalHeight * rectification}px`;
+		} else {
 			item.style.width = `${100 * rectification}%`;
 			item.style.height = `${100 * rectification}%`;
-		} else {
-			item.style.width = `${item.originalWidth * rectification}px`;
-			item.style.height = `${item.originalHeight * rectification}px`;
 		}
     item.style.transform = `scale(${1 / currScale})`;
     item.style.transformOrigin = `0 0`;
