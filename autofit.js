@@ -91,13 +91,9 @@ function elRectification(el, level = 1) {
     return;
   }
   for (let item of currEl) {
-    if (!isElRectification) {
-      item.originalWidth = item.clientWidth;
-      item.originalHeight = item.clientHeight;
-    }
     let rectification = currScale == 1 ? 1 : currScale * level;
-    item.style.width = `${item.originalWidth * rectification}px`;
-    item.style.height = `${item.originalHeight * rectification}px`;
+    item.style.width = `${100 * rectification}%`;
+    item.style.height = `${100 * rectification}%`;
     item.style.transform = `scale(${1 / currScale})`;
     item.style.transformOrigin = `0 0`;
   }
