@@ -20,7 +20,6 @@ const autofit = {
       ignore = [],
       transition = "none",
       delay = 0,
-      limit = 0.1,
     } = options;
     currRenderDom = el;
     let dom = document.querySelector(el);
@@ -42,17 +41,17 @@ const autofit = {
     dom.style.width = `${dw}px`;
     dom.style.transformOrigin = `0 0`;
     dom.style.overflow = "hidden";
-    keepFit(dw, dh, dom, ignore, limit);
+    keepFit(dw, dh, dom, ignore);
     resizeListener = () => {
       clearTimeout(timer);
       if (delay != 0)
         timer = setTimeout(() => {
-          keepFit(dw, dh, dom, ignore, limit);
+          keepFit(dw, dh, dom, ignore);
           isElRectification &&
             elRectification(currelRectification, currelRectificationIsKeepRatio,currelRectificationLevel);
         }, delay);
       else {
-        keepFit(dw, dh, dom, ignore, limit);
+        keepFit(dw, dh, dom, ignore);
         isElRectification &&
           elRectification(currelRectification,currelRectificationIsKeepRatio, currelRectificationLevel);
       }
