@@ -4,19 +4,7 @@
 
 [简体中文](./readme.md) | English
 
-autofit.js is a tool for making your PC projects responsive to the screen. Its principle is very simple: based on scaling with equal proportions, it increases the width or height to the right or bottom to achieve a full-screen effect. Using autofit.js does not compress or stretch elements; it simply sets the width and height of the container.
-
-| Date       | Version | Description                                                  |
-| ---------- | ------- | ------------------------------------------------------------ |
-| 2023-04-16 | v1.0.0  | First version released 🥳                                     |
-| 2023-04-23 | v1.0.9  | Fixed issue with invalidation after maximize/F11             |
-| 2023-05-12 | v1.1.2  | Added ignore element feature (offset for map hotspots)👍      |
-| 2023-05-22 | v2.0.0  | Added option to disable autofit's impact                     |
-| 2023-05-30 | v2.0.2  | Improved compatibility, added error prompts                  |
-| 2023-06-07 | v2.0.3  | Added delay, transition, and chart adaptation                |
-| 2023-06-19 | v2.0.5  | Fixed issue with multiple ignores not working, delay and transition are disabled by default |
-| 2023-07-04 | v2.0.6  | Unreleased - Fixed issue with abnormal off behavior, added undefined ts parameter |
-| 2023-07-11 | v3.0.0  | Improved stability and usability                             |
+autofit.js is a tool for making your PC projects responsive to the screen. Its principle is very simple: based on scaling with equal proportions, it increases the width or height to the right or bottom to achieve a full-screen effect. Using autofit.js does not compress or stretch elements; it simply sets the width and height of the container. 
 
 ### v3.0.0 New Version Introduction
 
