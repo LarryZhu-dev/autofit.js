@@ -1,0 +1,39 @@
+{
+  "include": [
+    "global.d.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [],
+  "compilerOptions": {
+    "strict": true,
+    "moduleResolution": "node",
+    "declaration": false,
+    "isolatedModules": true,
+    "removeComments": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "newLine": "LF",
+    "allowJs": true,
+    "checkJs": false,
+    "preserveSymlinks": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@root/*": ["./*"]
+    },
+    "lib": ["ESNext", "DOM"],
+    "module": "ES2015",
+    "plugins": [
+      {
+        "name": "typescript-snapshots-plugin",
+        "snapshotCallIdentifiers": [
+          "toMatchSnapshot",
+          "toThrowErrorMatchingSnapshot",
+          "toMatchDiffSnapshot"
+        ]
+      }
+    ]
+  }
+}
