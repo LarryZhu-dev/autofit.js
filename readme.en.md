@@ -1,4 +1,4 @@
-![autofitLogo](https://raw.githubusercontent.com/995231030/autofit.js/master/autofit.png)
+![autofitLogo](https://raw.githubusercontent.com/larryzhu-dev/autofit.js/master/autofit.png)
 
 <center><font face="黑体" size=26>autofit.js</font></center>
 
