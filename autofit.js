@@ -1,5 +1,5 @@
 /**
- * autofit.js v3.1.0
+ * autofit.js v3.1.1
  * (c) 2023-present Larry Zhu
  * Released under the MIT License.
  */
