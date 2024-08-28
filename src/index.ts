@@ -14,7 +14,9 @@ export interface AutofitOption {
   transition?: number;
   delay?: number;
   limit?: number;
+  cssMode?: "scale" | "zoom";
 }
+
 declare interface autofit {
   /**
    * 参数列表
@@ -30,6 +32,8 @@ declare interface autofit {
    * - ignore(可选)：忽略缩放的元素（该元素将反向缩放），参数见readme.md
    * - transition（可选）：过渡时间，默认是 0
    * - delay（可选）：延迟，默认是 0
+   * - limit（可选）：缩放限制，默认是 0.1
+   * - cssMode（可选）：缩放模式，默认是 scale，可选值有 scale 和 zoom, zoom 模式可能对事件偏移有利
    */
   init(options?: AutofitOption | string, isShowInitTip?: boolean): void;
   /**
@@ -75,6 +79,7 @@ const autofit: autofit = {
       transition = "none",
       delay = 0,
       limit = 0.1,
+      cssMode = "scale",
     } = options as AutofitOption;
     currRenderDom = el;
     const dom = document.querySelector<HTMLElement>(el);
@@ -96,19 +101,19 @@ const autofit: autofit = {
     dom.style.width = `${dw}px`;
     dom.style.transformOrigin = `0 0`;
     dom.style.overflow = "hidden";
-    keepFit(dw, dh, dom, ignore, limit);
+    keepFit(dw, dh, dom, ignore, limit, cssMode);
     resizeListener = () => {
       clearTimeout(timer);
       if (delay != 0)
         timer = setTimeout(() => {
-          keepFit(dw, dh, dom, ignore, limit);
+          keepFit(dw, dh, dom, ignore, limit, cssMode);
           isElRectification &&
-          elRectification(currelRectification, currelRectificationIsKeepRatio,currelRectificationLevel);
+            elRectification(currelRectification, currelRectificationIsKeepRatio, currelRectificationLevel);
         }, delay) as unknown as number;
       else {
-        keepFit(dw, dh, dom, ignore, limit);
+        keepFit(dw, dh, dom, ignore, limit, cssMode);
         isElRectification &&
-        elRectification(currelRectification,currelRectificationIsKeepRatio, currelRectificationLevel);
+          elRectification(currelRectification, currelRectificationIsKeepRatio, currelRectificationLevel);
       }
     };
     resize && window.addEventListener("resize", resizeListener);
@@ -147,7 +152,7 @@ function elRectification(el: string, isKeepRatio: string | boolean = true, level
   currelRectification = el;
   currelRectificationLevel = level;
   currelRectificationIsKeepRatio = isKeepRatio;
-  const currEl = Array.from(document.querySelectorAll<HTMLElement & { originalWidth: number, originalHeight: number  }>(el));
+  const currEl = Array.from(document.querySelectorAll<HTMLElement & { originalWidth: number, originalHeight: number }>(el));
   if (currEl.length == 0) {
     console.error("autofit.js：elRectification found no element");
     return;
@@ -184,7 +189,8 @@ function keepFit(
   dh: number,
   dom: HTMLElement,
   ignore: AutofitOption['ignore'],
-  limit: number
+  limit: number,
+  cssMode: AutofitOption['cssMode'] = "scale"
 ) {
   const clientHeight = document.documentElement.clientHeight;
   const clientWidth = document.documentElement.clientWidth;
@@ -195,7 +201,11 @@ function keepFit(
   const width = Math.round(clientWidth / Number(currScale));
   dom.style.height = `${height}px`;
   dom.style.width = `${width}px`;
-  dom.style.transform = `scale(${currScale})`;
+  if (cssMode === "zoom") {
+    dom.style.zoom = `${currScale}`;
+  } else {
+    dom.style.transform = `scale(${currScale})`;
+  }
   const ignoreStyleDOM = document.querySelector("#ignoreStyle")!;
   ignoreStyleDOM.innerHTML = "";
   for (const temp of ignore!) {
