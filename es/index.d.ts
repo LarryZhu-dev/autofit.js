@@ -14,6 +14,7 @@ export interface AutofitOption {
     transition?: number;
     delay?: number;
     limit?: number;
+    cssMode?: "scale" | "zoom";
 }
 declare interface autofit {
     /**
@@ -30,6 +31,8 @@ declare interface autofit {
      * - ignore(可选)：忽略缩放的元素（该元素将反向缩放），参数见readme.md
      * - transition（可选）：过渡时间，默认是 0
      * - delay（可选）：延迟，默认是 0
+     * - limit（可选）：缩放限制，默认是 0.1
+     * - cssMode（可选）：缩放模式，默认是 scale，可选值有 scale 和 zoom, zoom 模式可能对事件偏移有利
      */
     init(options?: AutofitOption | string, isShowInitTip?: boolean): void;
     /**

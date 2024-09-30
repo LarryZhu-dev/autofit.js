@@ -212,8 +212,8 @@ function keepFit(
     const item = temp as IgnoreOption & { dom: string };
     let itemEl = item.el || item.dom;
     typeof item == "string" && (itemEl = item);
-    if (!itemEl) {
-      console.error(`autofit: bad selector: ${itemEl}`);
+    if (!itemEl || (typeof itemEl === "object" && !Object.keys(itemEl).length )) {
+      console.error(`autofit: found invalid or empty selector/object: ${itemEl}`);
       continue;
     }
     const realScale = item.scale ? item.scale : 1 / Number(currScale);

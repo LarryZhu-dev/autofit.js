@@ -29,7 +29,7 @@ var autofit = {
         if (isShowInitTip) {
             console.log("autofit.js is running");
         }
-        var _a = options, _b = _a.dw, dw = _b === void 0 ? 1920 : _b, _c = _a.dh, dh = _c === void 0 ? 1080 : _c, _d = _a.el, el = _d === void 0 ? typeof options === "string" ? options : "body" : _d, _e = _a.resize, resize = _e === void 0 ? true : _e, _f = _a.ignore, ignore = _f === void 0 ? [] : _f, _g = _a.transition, transition = _g === void 0 ? "none" : _g, _h = _a.delay, delay = _h === void 0 ? 0 : _h, _j = _a.limit, limit = _j === void 0 ? 0.1 : _j;
+        var _a = options, _b = _a.dw, dw = _b === void 0 ? 1920 : _b, _c = _a.dh, dh = _c === void 0 ? 1080 : _c, _d = _a.el, el = _d === void 0 ? typeof options === "string" ? options : "body" : _d, _e = _a.resize, resize = _e === void 0 ? true : _e, _f = _a.ignore, ignore = _f === void 0 ? [] : _f, _g = _a.transition, transition = _g === void 0 ? "none" : _g, _h = _a.delay, delay = _h === void 0 ? 0 : _h, _j = _a.limit, limit = _j === void 0 ? 0.1 : _j, _k = _a.cssMode, cssMode = _k === void 0 ? "scale" : _k;
         currRenderDom = el;
         var dom = document.querySelector(el);
         if (!dom) {
@@ -50,17 +50,17 @@ var autofit = {
         dom.style.width = "".concat(dw, "px");
         dom.style.transformOrigin = "0 0";
         dom.style.overflow = "hidden";
-        keepFit(dw, dh, dom, ignore, limit);
+        keepFit(dw, dh, dom, ignore, limit, cssMode);
         resizeListener = function () {
             clearTimeout(timer);
             if (delay != 0)
                 timer = setTimeout(function () {
-                    keepFit(dw, dh, dom, ignore, limit);
+                    keepFit(dw, dh, dom, ignore, limit, cssMode);
                     isElRectification &&
                         elRectification(currelRectification, currelRectificationIsKeepRatio, currelRectificationLevel);
                 }, delay);
             else {
-                keepFit(dw, dh, dom, ignore, limit);
+                keepFit(dw, dh, dom, ignore, limit, cssMode);
                 isElRectification &&
                     elRectification(currelRectification, currelRectificationIsKeepRatio, currelRectificationLevel);
             }
@@ -160,8 +160,9 @@ function offelRectification() {
         finally { if (e_2) throw e_2.error; }
     }
 }
-function keepFit(dw, dh, dom, ignore, limit) {
+function keepFit(dw, dh, dom, ignore, limit, cssMode) {
     var e_3, _a;
+    if (cssMode === void 0) { cssMode = "scale"; }
     var clientHeight = document.documentElement.clientHeight;
     var clientWidth = document.documentElement.clientWidth;
     currScale =
@@ -171,7 +172,12 @@ function keepFit(dw, dh, dom, ignore, limit) {
     var width = Math.round(clientWidth / Number(currScale));
     dom.style.height = "".concat(height, "px");
     dom.style.width = "".concat(width, "px");
-    dom.style.transform = "scale(".concat(currScale, ")");
+    if (cssMode === "zoom") {
+        dom.style.zoom = "".concat(currScale);
+    }
+    else {
+        dom.style.transform = "scale(".concat(currScale, ")");
+    }
     var ignoreStyleDOM = document.querySelector("#ignoreStyle");
     ignoreStyleDOM.innerHTML = "";
     try {
@@ -180,8 +186,8 @@ function keepFit(dw, dh, dom, ignore, limit) {
             var item = temp;
             var itemEl = item.el || item.dom;
             typeof item == "string" && (itemEl = item);
-            if (!itemEl) {
-                console.error("autofit: bad selector: ".concat(itemEl));
+            if (!itemEl || (typeof itemEl === "object" && !Object.keys(itemEl).length)) {
+                console.error("autofit: found invalid or empty selector/object: ".concat(itemEl));
                 continue;
             }
             var realScale = item.scale ? item.scale : 1 / Number(currScale);
