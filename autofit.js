@@ -1,5 +1,5 @@
 /**
- * autofit.js v3.1.1
+ * autofit.js v3.1.2
  * (c) 2023-present Larry Zhu
  * Released under the MIT License.
  */
@@ -75,7 +75,7 @@ function _typeof(o) {
       if (isShowInitTip) {
         console.log("autofit.js is running");
       }
-      var _options$dw = options.dw, dw = _options$dw === void 0 ? 1920 : _options$dw, _options$dh = options.dh, dh = _options$dh === void 0 ? 1080 : _options$dh, _options$el = options.el, el = _options$el === void 0 ? typeof options === "string" ? options : "body" : _options$el, _options$resize = options.resize, resize = _options$resize === void 0 ? true : _options$resize, _options$ignore = options.ignore, ignore = _options$ignore === void 0 ? [] : _options$ignore, _options$transition = options.transition, transition = _options$transition === void 0 ? "none" : _options$transition, _options$delay = options.delay, delay = _options$delay === void 0 ? 0 : _options$delay, _options$limit = options.limit, limit = _options$limit === void 0 ? 0.1 : _options$limit;
+      var _options$dw = options.dw, dw = _options$dw === void 0 ? 1920 : _options$dw, _options$dh = options.dh, dh = _options$dh === void 0 ? 1080 : _options$dh, _options$el = options.el, el = _options$el === void 0 ? typeof options === "string" ? options : "body" : _options$el, _options$resize = options.resize, resize = _options$resize === void 0 ? true : _options$resize, _options$ignore = options.ignore, ignore = _options$ignore === void 0 ? [] : _options$ignore, _options$transition = options.transition, transition = _options$transition === void 0 ? "none" : _options$transition, _options$delay = options.delay, delay = _options$delay === void 0 ? 0 : _options$delay, _options$limit = options.limit, limit = _options$limit === void 0 ? 0.1 : _options$limit, _options$cssMode = options.cssMode, cssMode = _options$cssMode === void 0 ? "scale" : _options$cssMode;
       currRenderDom = el;
       var dom = document.querySelector(el);
       if (!dom) {
@@ -96,15 +96,15 @@ function _typeof(o) {
       dom.style.width = "".concat(dw, "px");
       dom.style.transformOrigin = "0 0";
       dom.style.overflow = "hidden";
-      keepFit(dw, dh, dom, ignore, limit);
+      keepFit(dw, dh, dom, ignore, limit, cssMode);
       resizeListener = function resizeListener2() {
         clearTimeout(timer);
         if (delay != 0) timer = setTimeout(function() {
-          keepFit(dw, dh, dom, ignore, limit);
+          keepFit(dw, dh, dom, ignore, limit, cssMode);
           isElRectification && elRectification(currelRectification, currelRectificationIsKeepRatio, currelRectificationLevel);
         }, delay);
         else {
-          keepFit(dw, dh, dom, ignore, limit);
+          keepFit(dw, dh, dom, ignore, limit, cssMode);
           isElRectification && elRectification(currelRectification, currelRectificationIsKeepRatio, currelRectificationLevel);
         }
       };
@@ -180,6 +180,7 @@ function _typeof(o) {
     }
   }
   function keepFit(dw, dh, dom, ignore, limit) {
+    var cssMode = arguments.length > 5 && arguments[5] !== void 0 ? arguments[5] : "scale";
     var clientHeight = document.documentElement.clientHeight;
     var clientWidth = document.documentElement.clientWidth;
     currScale = clientWidth / clientHeight < dw / dh ? clientWidth / dw : clientHeight / dh;
@@ -188,7 +189,11 @@ function _typeof(o) {
     var width = Math.round(clientWidth / Number(currScale));
     dom.style.height = "".concat(height, "px");
     dom.style.width = "".concat(width, "px");
-    dom.style.transform = "scale(".concat(currScale, ")");
+    if (cssMode === "zoom") {
+      dom.style.zoom = "".concat(currScale);
+    } else {
+      dom.style.transform = "scale(".concat(currScale, ")");
+    }
     var ignoreStyleDOM = document.querySelector("#ignoreStyle");
     ignoreStyleDOM.innerHTML = "";
     var _iterator = _createForOfIteratorHelper(ignore), _step;
@@ -198,8 +203,8 @@ function _typeof(o) {
         var item = temp;
         var itemEl = item.el || item.dom;
         typeof item == "string" && (itemEl = item);
-        if (!itemEl) {
-          console.error("autofit: bad selector: ".concat(itemEl));
+        if (!itemEl || _typeof(itemEl) === "object" && !Object.keys(itemEl).length) {
+          console.error("autofit: found invalid or empty selector/object: ".concat(itemEl));
           continue;
         }
         var realScale = item.scale ? item.scale : 1 / Number(currScale);
