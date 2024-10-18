@@ -1,5 +1,5 @@
 /**
- * autofit.js v3.1.2
+ * autofit.js v3.1.3
  * (c) 2023-present Larry Zhu
  * Released under the MIT License.
  */
@@ -75,7 +75,7 @@ function _typeof(o) {
       if (isShowInitTip) {
         console.log("autofit.js is running");
       }
-      var _options$dw = options.dw, dw = _options$dw === void 0 ? 1920 : _options$dw, _options$dh = options.dh, dh = _options$dh === void 0 ? 1080 : _options$dh, _options$el = options.el, el = _options$el === void 0 ? typeof options === "string" ? options : "body" : _options$el, _options$resize = options.resize, resize = _options$resize === void 0 ? true : _options$resize, _options$ignore = options.ignore, ignore = _options$ignore === void 0 ? [] : _options$ignore, _options$transition = options.transition, transition = _options$transition === void 0 ? "none" : _options$transition, _options$delay = options.delay, delay = _options$delay === void 0 ? 0 : _options$delay, _options$limit = options.limit, limit = _options$limit === void 0 ? 0.1 : _options$limit, _options$cssMode = options.cssMode, cssMode = _options$cssMode === void 0 ? "scale" : _options$cssMode;
+      var _options$dw = options.dw, dw = _options$dw === void 0 ? 1920 : _options$dw, _options$dh = options.dh, dh = _options$dh === void 0 ? 1080 : _options$dh, _options$el = options.el, el = _options$el === void 0 ? typeof options === "string" ? options : "body" : _options$el, _options$resize = options.resize, resize = _options$resize === void 0 ? true : _options$resize, _options$ignore = options.ignore, ignore = _options$ignore === void 0 ? [] : _options$ignore, _options$transition = options.transition, transition = _options$transition === void 0 ? "none" : _options$transition, _options$delay = options.delay, delay = _options$delay === void 0 ? 0 : _options$delay, _options$limit = options.limit, limit = _options$limit === void 0 ? 0.1 : _options$limit, _options$cssMode = options.cssMode, cssMode = _options$cssMode === void 0 ? "scale" : _options$cssMode, _options$allowScoll = options.allowScoll, allowScoll = _options$allowScoll === void 0 ? false : _options$allowScoll;
       currRenderDom = el;
       var dom = document.querySelector(el);
       if (!dom) {
@@ -88,14 +88,14 @@ function _typeof(o) {
       ignoreStyle.lang = "text/css";
       style.id = "autofit-style";
       ignoreStyle.id = "ignoreStyle";
-      style.innerHTML = "body {overflow: hidden;}";
+      !allowScoll && (style.innerHTML = "body {overflow: hidden;}");
       var bodyEl = document.querySelector("body");
       bodyEl.appendChild(style);
       bodyEl.appendChild(ignoreStyle);
       dom.style.height = "".concat(dh, "px");
       dom.style.width = "".concat(dw, "px");
       dom.style.transformOrigin = "0 0";
-      dom.style.overflow = "hidden";
+      !allowScoll && (dom.style.overflow = "hidden");
       keepFit(dw, dh, dom, ignore, limit, cssMode);
       resizeListener = function resizeListener2() {
         clearTimeout(timer);
@@ -184,7 +184,7 @@ function _typeof(o) {
     var clientHeight = document.documentElement.clientHeight;
     var clientWidth = document.documentElement.clientWidth;
     currScale = clientWidth / clientHeight < dw / dh ? clientWidth / dw : clientHeight / dh;
-    currScale = Math.abs(1 - currScale) > limit ? currScale.toFixed(2) : 1;
+    currScale = Math.abs(1 - currScale) > limit ? currScale : 1;
     var height = Math.round(clientHeight / Number(currScale));
     var width = Math.round(clientWidth / Number(currScale));
     dom.style.height = "".concat(height, "px");
