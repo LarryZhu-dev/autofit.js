@@ -15,6 +15,7 @@ export interface AutofitOption {
   delay?: number;
   limit?: number;
   cssMode?: "scale" | "zoom";
+  allowScoll?: boolean;
 }
 
 declare interface autofit {
@@ -80,6 +81,7 @@ const autofit: autofit = {
       delay = 0,
       limit = 0.1,
       cssMode = "scale",
+      allowScoll = false,
     } = options as AutofitOption;
     currRenderDom = el;
     const dom = document.querySelector<HTMLElement>(el);
@@ -93,14 +95,14 @@ const autofit: autofit = {
     ignoreStyle.lang = "text/css";
     style.id = "autofit-style";
     ignoreStyle.id = "ignoreStyle";
-    style.innerHTML = `body {overflow: hidden;}`;
+    !allowScoll && (style.innerHTML = `body {overflow: hidden;}`);
     const bodyEl = document.querySelector("body")!;
     bodyEl.appendChild(style);
     bodyEl.appendChild(ignoreStyle);
     dom.style.height = `${dh}px`;
     dom.style.width = `${dw}px`;
     dom.style.transformOrigin = `0 0`;
-    dom.style.overflow = "hidden";
+    !allowScoll && (dom.style.overflow = "hidden");
     keepFit(dw, dh, dom, ignore, limit, cssMode);
     resizeListener = () => {
       clearTimeout(timer);
@@ -196,7 +198,7 @@ function keepFit(
   const clientWidth = document.documentElement.clientWidth;
   currScale =
     clientWidth / clientHeight < dw / dh ? clientWidth / dw : clientHeight / dh;
-  currScale = Math.abs(1 - currScale) > limit ? currScale.toFixed(2) : 1;
+  currScale = Math.abs(1 - currScale) > limit ? currScale : 1;
   const height = Math.round(clientHeight / Number(currScale));
   const width = Math.round(clientWidth / Number(currScale));
   dom.style.height = `${height}px`;
@@ -212,7 +214,7 @@ function keepFit(
     const item = temp as IgnoreOption & { dom: string };
     let itemEl = item.el || item.dom;
     typeof item == "string" && (itemEl = item);
-    if (!itemEl || (typeof itemEl === "object" && !Object.keys(itemEl).length )) {
+    if (!itemEl || (typeof itemEl === "object" && !Object.keys(itemEl).length)) {
       console.error(`autofit: found invalid or empty selector/object: ${itemEl}`);
       continue;
     }

@@ -8,7 +8,7 @@ export default function removeNamedExport(options: { include?: FilterPattern, ex
     name: 'remove-named-export',
 
     async transform(code, id) {
-      if (!filter(id)) {
+      if (!filter(id) || !/\.(js|ts)$/.test(id)) {
         return null;
       }
 

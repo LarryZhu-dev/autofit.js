@@ -4,13 +4,50 @@
 <head>
   <meta charset="UTF-8">
   <title>autofit.js dev</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      overflow-y: scroll;
+    }
+
+    .main {
+      width: 100%;
+      height: 120%;
+      display: flex;
+      color: #fff;
+    }
+
+    .main div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+      flex: 1;
+    }
+
+    .left {
+      background: #d4ab64;
+    }
+
+    .center {
+      background: #18645a;
+    }
+
+    .right {
+      background: #e5e510;
+    }
+  </style>
 </head>
 
 <body style="padding: 0;margin: 0;">
-  <div class="main" style="width: 100%;height: 100%;display: flex;color: #fff;">
-    <div class="left" style="flex: 1;background: #d4ab64;">left</div>
-    <div class="center" style="flex: 1;background: #18645a;">center</div>
-    <div class="right" style="flex: 1;background: #e5e510;">right</div>
+  <div class="main">
+    <div class="left">left</div>
+    <div class="center">center</div>
+    <div class="right">right</div>
     <script src="/index.ts" type="module"></script>
   </div>
 </body>
