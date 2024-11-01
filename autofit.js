@@ -1,5 +1,5 @@
 /**
- * autofit.js v3.1.3
+ * autofit.js v3.2.0
  * (c) 2023-present Larry Zhu
  * Released under the MIT License.
  */
@@ -211,10 +211,15 @@ function _typeof(o) {
         var realFontSize = realScale != currScale ? item.fontSize : "autofit";
         var realWidth = realScale != currScale ? item.width : "autofit";
         var realHeight = realScale != currScale ? item.height : "autofit";
-        var regex = new RegExp("".concat(itemEl, "( |{)"), "gm");
-        var isIgnored = regex.test(ignoreStyleDOM.innerHTML);
-        if (isIgnored) {
-          continue;
+        var attrSelectorRegExp = /[a-zA-Z0-9]\[.*=.*\]/g;
+        var isAttrSelector = attrSelectorRegExp.test(itemEl);
+        if (isAttrSelector) ;
+        else {
+          var regex = new RegExp("".concat(itemEl, "( |{)"), "gm");
+          var isIgnored = regex.test(ignoreStyleDOM.innerHTML);
+          if (isIgnored) {
+            continue;
+          }
         }
         ignoreStyleDOM.innerHTML += "\n".concat(itemEl, " { \n      transform: scale(").concat(realScale, ")!important;\n      transform-origin: 0 0;\n      width: ").concat(realWidth, "!important;\n      height: ").concat(realHeight, "!important;\n    }");
         if (realFontSize) {
