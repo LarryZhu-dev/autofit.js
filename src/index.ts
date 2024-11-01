@@ -15,7 +15,7 @@ export interface AutofitOption {
   delay?: number;
   limit?: number;
   cssMode?: "scale" | "zoom";
-  allowScoll?: boolean;
+  allowScroll?: boolean;
 }
 
 declare interface autofit {
@@ -81,7 +81,7 @@ const autofit: autofit = {
       delay = 0,
       limit = 0.1,
       cssMode = "scale",
-      allowScoll = false,
+      allowScroll = false,
     } = options as AutofitOption;
     currRenderDom = el;
     const dom = document.querySelector<HTMLElement>(el);
@@ -95,14 +95,14 @@ const autofit: autofit = {
     ignoreStyle.lang = "text/css";
     style.id = "autofit-style";
     ignoreStyle.id = "ignoreStyle";
-    !allowScoll && (style.innerHTML = `body {overflow: hidden;}`);
+    !allowScroll && (style.innerHTML = `body {overflow: hidden;}`);
     const bodyEl = document.querySelector("body")!;
     bodyEl.appendChild(style);
     bodyEl.appendChild(ignoreStyle);
     dom.style.height = `${dh}px`;
     dom.style.width = `${dw}px`;
     dom.style.transformOrigin = `0 0`;
-    !allowScoll && (dom.style.overflow = "hidden");
+    !allowScroll && (dom.style.overflow = "hidden");
     keepFit(dw, dh, dom, ignore, limit, cssMode);
     resizeListener = () => {
       clearTimeout(timer);
@@ -222,7 +222,7 @@ function keepFit(
     const realFontSize = realScale != currScale ? item.fontSize : "autofit";
     const realWidth = realScale != currScale ? item.width : "autofit";
     const realHeight = realScale != currScale ? item.height : "autofit";
-    const attrSelectorRegExp = /[a-zA-Z0-9]\[.*=.*\]/g; 
+    const attrSelectorRegExp = /[a-zA-Z0-9]\[.*=.*\]/g;
     const isAttrSelector = attrSelectorRegExp.test(itemEl);
     if(isAttrSelector){}
     else{
