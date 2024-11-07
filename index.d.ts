@@ -15,7 +15,7 @@ export interface AutofitOption {
     delay?: number;
     limit?: number;
     cssMode?: "scale" | "zoom";
-    allowScoll?: boolean;
+    allowScroll?: boolean;
 }
 declare interface autofit {
     /**

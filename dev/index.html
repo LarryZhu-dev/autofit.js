@@ -40,6 +40,56 @@
     .right {
       background: #e5e510;
     }
+
+    .rulerMask {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      top: 0;
+      left: 0;
+    }
+
+    .rulerMask>div {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .rulerMask>.horizontal{
+      flex-direction: column;
+    }
+
+    .rulerMask>div>span {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .rulerMask>.vertical>span::after {
+      content: '';
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      background: #fff;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .rulerMask>.horizontal>span::after {
+      content: '';
+      position: absolute;
+      height: 1px;
+      width: 100%;
+      background: #fff;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   </style>
   <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
   <script src="//unpkg.com/vue@3"></script>
@@ -49,7 +99,7 @@
 <body style="padding: 0;margin: 0;">
   <div id="app" class="main">
     <div class="left">
-      <el-dropdown >
+      <el-dropdown>
         <el-button type="primary" style=" transition-delay: 9999s;">
           Dropdown List
         </el-button>
@@ -66,26 +116,40 @@
     </div>
     <div class="center">center</div>
     <div class="right">right</div>
-    <script src="/index.ts" type="module"></script>
-    <script type="module">
-      const  { ElButton,ElMessage, ElMessageBox } = ElementPlus
-      const { createApp } = Vue;
-      const App = {
-        data() {
-          return {
-            message: "Hello Element Plus",
-          };
-        },
-        components: { ElButton,ElMessage, ElMessageBox  },
-        methods: {
-          
-        }
-      };
-      const app = createApp(App);
-      app.use(ElementPlus);
-      app.mount("#app");
-    </script>
+    <div class="rulerMask">
+      <div class="vertical">
+        <span class="mark1"></span><span class="mark2"></span><span class="mark3"></span><span
+          class="mark4"></span><span class="mark5"></span><span class="mark6"></span><span class="mark7"></span><span
+          class="mark8"></span><span class="mark9"></span><span class="mark10"></span><span class="mark11"></span><span
+          class="mark12"></span>
+      </div>
+      <div class="horizontal">
+        <span class="mark1"></span><span class="mark2"></span><span class="mark3"></span><span
+          class="mark4"></span><span class="mark5"></span><span class="mark6"></span><span class="mark7"></span><span
+          class="mark8"></span><span class="mark9"></span><span class="mark10"></span><span class="mark11"></span><span
+          class="mark12"></span>
+      </div>
+    </div>
   </div>
 </body>
 
 </html>
+<script src="/index.ts" type="module"></script>
+<script type="module">
+  const { ElButton, ElMessage, ElMessageBox } = ElementPlus
+  const { createApp } = Vue;
+  const App = {
+    data() {
+      return {
+        message: "Hello Element Plus",
+      };
+    },
+    components: { ElButton, ElMessage, ElMessageBox },
+    methods: {
+
+    }
+  };
+  const app = createApp(App);
+  app.use(ElementPlus);
+  app.mount("#app");
+</script>

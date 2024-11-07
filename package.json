@@ -1,6 +1,6 @@
 {
   "name": "autofit.js",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "autofit.js 是迄今为止最易用的自适应工具",
   "main": "index.js",
   "types": "./index.d.ts",

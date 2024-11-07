@@ -29,7 +29,7 @@ var autofit = {
         if (isShowInitTip) {
             console.log("autofit.js is running");
         }
-        var _a = options, _b = _a.dw, dw = _b === void 0 ? 1920 : _b, _c = _a.dh, dh = _c === void 0 ? 1080 : _c, _d = _a.el, el = _d === void 0 ? typeof options === "string" ? options : "body" : _d, _e = _a.resize, resize = _e === void 0 ? true : _e, _f = _a.ignore, ignore = _f === void 0 ? [] : _f, _g = _a.transition, transition = _g === void 0 ? "none" : _g, _h = _a.delay, delay = _h === void 0 ? 0 : _h, _j = _a.limit, limit = _j === void 0 ? 0.1 : _j, _k = _a.cssMode, cssMode = _k === void 0 ? "scale" : _k, _l = _a.allowScoll, allowScoll = _l === void 0 ? false : _l;
+        var _a = options, _b = _a.dw, dw = _b === void 0 ? 1920 : _b, _c = _a.dh, dh = _c === void 0 ? 1080 : _c, _d = _a.el, el = _d === void 0 ? typeof options === "string" ? options : "body" : _d, _e = _a.resize, resize = _e === void 0 ? true : _e, _f = _a.ignore, ignore = _f === void 0 ? [] : _f, _g = _a.transition, transition = _g === void 0 ? "none" : _g, _h = _a.delay, delay = _h === void 0 ? 0 : _h, _j = _a.limit, limit = _j === void 0 ? 0.1 : _j, _k = _a.cssMode, cssMode = _k === void 0 ? "scale" : _k, _l = _a.allowScroll, allowScroll = _l === void 0 ? false : _l;
         currRenderDom = el;
         var dom = document.querySelector(el);
         if (!dom) {
@@ -42,14 +42,14 @@ var autofit = {
         ignoreStyle.lang = "text/css";
         style.id = "autofit-style";
         ignoreStyle.id = "ignoreStyle";
-        !allowScoll && (style.innerHTML = "body {overflow: hidden;}");
+        !allowScroll && (style.innerHTML = "body {overflow: hidden;}");
         var bodyEl = document.querySelector("body");
         bodyEl.appendChild(style);
         bodyEl.appendChild(ignoreStyle);
         dom.style.height = "".concat(dh, "px");
         dom.style.width = "".concat(dw, "px");
         dom.style.transformOrigin = "0 0";
-        !allowScoll && (dom.style.overflow = "hidden");
+        !allowScroll && (dom.style.overflow = "hidden");
         keepFit(dw, dh, dom, ignore, limit, cssMode);
         resizeListener = function () {
             clearTimeout(timer);
