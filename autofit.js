@@ -1,5 +1,5 @@
 /**
- * autofit.js v3.2.1
+ * autofit.js v3.2.2
  * (c) 2023-present Larry Zhu
  * Released under the MIT License.
  */
@@ -208,20 +208,10 @@ function _typeof(o) {
           continue;
         }
         var realScale = item.scale ? item.scale : 1 / Number(currScale);
-        var realFontSize = realScale != currScale ? item.fontSize : "autofit";
-        var realWidth = realScale != currScale ? item.width : "autofit";
-        var realHeight = realScale != currScale ? item.height : "autofit";
-        var attrSelectorRegExp = /[a-zA-Z0-9]\[.*=.*\]/g;
-        var isAttrSelector = attrSelectorRegExp.test(itemEl);
-        if (isAttrSelector) ;
-        else {
-          var regex = new RegExp("".concat(itemEl, "( |{)"), "gm");
-          var isIgnored = regex.test(ignoreStyleDOM.innerHTML);
-          if (isIgnored) {
-            continue;
-          }
-        }
-        ignoreStyleDOM.innerHTML += "\n".concat(itemEl, " { \n      transform: scale(").concat(realScale, ")!important;\n      transform-origin: 0 0;\n      width: ").concat(realWidth, "!important;\n      height: ").concat(realHeight, "!important;\n    }");
+        var realFontSize = realScale != currScale && item.fontSize;
+        var realWidth = realScale != currScale && item.width;
+        var realHeight = realScale != currScale && item.height;
+        ignoreStyleDOM.innerHTML += "\n".concat(itemEl, " { \n      transform: scale(").concat(realScale, ")!important;\n      transform-origin: 0 0;\n      ").concat(realWidth ? "width: ".concat(realWidth, "!important;") : "", "\n      ").concat(realHeight ? "height: ".concat(realHeight, "!important;") : "", "\n    }");
         if (realFontSize) {
           ignoreStyleDOM.innerHTML += "\n".concat(itemEl, " div ,").concat(itemEl, " span,").concat(itemEl, " a,").concat(itemEl, " * {\n        font-size: ").concat(realFontSize, "px;\n      }");
         }

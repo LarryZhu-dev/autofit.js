@@ -222,16 +222,6 @@ function keepFit(
     const realFontSize = realScale != currScale && item.fontSize;
     const realWidth = realScale != currScale && item.width;
     const realHeight = realScale != currScale && item.height;
-    const attrSelectorRegExp = /[a-zA-Z0-9]\[.*=.*\]/g;
-    const isAttrSelector = attrSelectorRegExp.test(itemEl);
-    if(isAttrSelector){}
-    else{
-      const regex = new RegExp(`${itemEl}(\x20|{)`, "gm");
-      const isIgnored = regex.test(ignoreStyleDOM.innerHTML);
-      if (isIgnored) {
-        continue;
-      }
-    }
     ignoreStyleDOM.innerHTML += `\n${itemEl} { 
       transform: scale(${realScale})!important;
       transform-origin: 0 0;
