@@ -219,9 +219,9 @@ function keepFit(
       continue;
     }
     const realScale = item.scale ? item.scale : 1 / Number(currScale);
-    const realFontSize = realScale != currScale ? item.fontSize : "autofit";
-    const realWidth = realScale != currScale ? item.width : "autofit";
-    const realHeight = realScale != currScale ? item.height : "autofit";
+    const realFontSize = realScale != currScale && item.fontSize;
+    const realWidth = realScale != currScale && item.width;
+    const realHeight = realScale != currScale && item.height;
     const attrSelectorRegExp = /[a-zA-Z0-9]\[.*=.*\]/g;
     const isAttrSelector = attrSelectorRegExp.test(itemEl);
     if(isAttrSelector){}
@@ -235,8 +235,8 @@ function keepFit(
     ignoreStyleDOM.innerHTML += `\n${itemEl} { 
       transform: scale(${realScale})!important;
       transform-origin: 0 0;
-      width: ${realWidth}!important;
-      height: ${realHeight}!important;
+      ${realWidth ? `width: ${realWidth}!important;` : ''}
+      ${realHeight ? `height: ${realHeight}!important;` : ''}
     }`;
     if (realFontSize) {
       ignoreStyleDOM.innerHTML += `\n${itemEl} div ,${itemEl} span,${itemEl} a,${itemEl} * {
